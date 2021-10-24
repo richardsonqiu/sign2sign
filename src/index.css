@@ -18,10 +18,10 @@ Variables
     --mainGrey: #ececec;
     --darkGrey: #afafaf;
     --mainRed: #bd0303;
-    --mainTransition: all 0.3s linear;
+    --mainTransition: all 0.3s ease;
     /* --mainSpacing: 0.3rem; */
-    --lightShadow: 2px 5px 3px 0px rgba(0, 0, 0, 0.2);
-    --darkShadow: 4px 10px 5px 0px rgba(0, 0, 0, 0.5);
+    --lightShadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
+    --darkShadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.2);
     --smBorderRadius: 0.5rem;
     --lgBorderRadius: 1rem;
     --smallWidth: 85vw;
@@ -236,7 +236,7 @@ Cards List
 */
 
 .section {
-    padding: 5rem 0;
+    padding: 2rem 0;
 }
 
 .section-title {
@@ -285,26 +285,34 @@ Card
 }
 
 .card-title {
-    padding: 1.5rem;
+    padding-top: 1rem;
+    text-align: center;
     /* font-size: 1rem; */
 }
 
 .card img {
-    height: 20rem;
+    height: 15rem;
     border-radius: var(--lgBorderRadius);
+    border: 1px solid var(--primaryColor);
 }
 
 .card-footer {
-    padding: 1.5rem;
+    padding: 1rem;
+    text-align: center;
 }
 
 .card-footer h3,
 .card-footer h4 {
     margin-bottom: 0.3rem;
+    text-align: center;
 }
 
 .card-footer h3 {
-    font-size: 2rem;
+    font-size: 1rem;
+}
+
+.card-footer p {
+    font-weight: 400;
 }
 
 
