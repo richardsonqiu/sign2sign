@@ -24,14 +24,17 @@ export const menu = [
 
 export const lessons = [
   {
+    id: 1,
     img: require("./imgs/lesson1.png").default,
     title: "Getting to know you",
   },
   {
+    id: 2,
     img: require("./imgs/lesson2.png").default,
     title: "Going to eat pizza",
   },
   {
+    id: 3,
     img: require("./imgs/lesson3.png").default,
     title: "Asking direction",
   },

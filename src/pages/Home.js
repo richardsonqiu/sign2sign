@@ -1,12 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useGlobalContext } from "../context";
 import { lessons } from "../data";
-
-function GetUser() {
-  const userid = 1;
-  const username = "Bob";
-  return { userid, username };
-}
 
 function GetUserProgress() {
   const lessonId = 1;
@@ -40,7 +35,7 @@ function GetConvoDetail(id) {
 }
 
 const Home = () => {
-  const { userid, username } = GetUser();
+  const { userid, username } = useGlobalContext();
   const userProgress = GetUserProgress();
   const { lessonId, lessonImg, lessonTitle } = GetLessonDetail(
     userProgress.lessonId
