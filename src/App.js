@@ -9,6 +9,8 @@ import Profile from "./pages/Profile";
 
 // import components
 import Navbar from "./components/Navbar";
+import Lesson from "./components/Lesson";
+import LessonList from "./components/LessonList";
 
 function App() {
   return (
@@ -24,6 +26,19 @@ function App() {
         <Route path="/profile">
           <Profile />
         </Route>
+        <Route path="/lesson">
+          <LessonList />
+        </Route>
+        <Route path="/lesson/:id">
+          <Lesson />
+        </Route>
+        {/* <Route path="/conversation">
+          <ConvoList />
+        </Route>
+        <Route path="/vocabulary">
+          <VocabList />
+        </Route> */}
+
         <Route path="*">
           <Error />
         </Route>

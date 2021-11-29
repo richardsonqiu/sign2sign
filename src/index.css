@@ -48,7 +48,7 @@ body {
     background: var(--mainBackground);
     line-height: 1.4;
     font-size: 1rem;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 h1,
@@ -58,7 +58,7 @@ h4,
 h5,
 h6 {
     font-family: var(--slantedFont);
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
     letter-spacing: var(--mainSpacing);
 }
 
@@ -110,7 +110,6 @@ Navbar
 }
 
 .nav-links a {
-    text-transform: capitalize;
     display: inline-block;
     margin-right: 0.5rem;
     font-weight: 400;
@@ -214,6 +213,24 @@ About
 
 /* 
 ====== 
+Profile
+======
+*/
+
+.profile-section {
+    width: var(--smallWidth);
+    max-width: var(--fullWidth);
+    margin: 0 auto;
+}
+
+.profile-section p {
+    line-height: 2rem;
+    font-weight: 400;
+}
+
+
+/* 
+====== 
 Error
 ======
 */
@@ -225,7 +242,6 @@ Error
 
 .error-container {
     text-align: center;
-    text-transform: capitalize;
 }
 
 
@@ -241,9 +257,8 @@ Cards List
 
 .section-title {
     font-size: 2rem;
-    text-transform: capitalize;
     text-align: center;
-    margin-bottom: 3.5rem;
+    margin-bottom: 1rem;
     margin-top: 1rem;
 }
 
@@ -271,7 +286,8 @@ Card
 
 .card {
     background: var(--mainWhite);
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
     box-shadow: var(--lightShadow);
     transition: var(--mainTransition);
     display: grid;
@@ -364,19 +380,6 @@ Loading
 }
 
 @-webkit-keyframes load1 {
-    0%,
-    80%,
-    100% {
-        box-shadow: 0 0;
-        height: 4em;
-    }
-    40% {
-        box-shadow: 0 -2em;
-        height: 5em;
-    }
-}
-
-@keyframes load1 {
     0%,
     80%,
     100% {

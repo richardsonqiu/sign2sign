@@ -1,9 +1,8 @@
 import React from "react";
-import LessonCard from "./LessonCard";
 import { menu } from "../data";
 
-const Menu = ({ id, title, img, progress, detail }) => {
-  console.log({ img });
+const Lesson = ({ id, title, img, progress, detail }) => {
+  // console.log({ img });
   return (
     <div className="card">
       <h3 className="card-title">{title}</h3>
@@ -17,4 +16,4 @@ const Menu = ({ id, title, img, progress, detail }) => {
   );
 };
 
-export default Menu;
+export default Lesson;

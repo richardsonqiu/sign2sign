@@ -1,26 +1,38 @@
 import React from "react";
 
-export const menu = [
+export const user = [
   {
     id: 1,
-    title: "Lessons",
+    username: "bob",
+    lesson_progress: 1,
+    vocab_progress: 2,
+    convo_progress: 3,
+  },
+];
+
+export const menu = [
+  {
+    id: "lesson",
+  },
+  {
+    id: "vocabulary",
+  },
+  {
+    id: "conversation",
+  },
+];
+
+export const lessons = [
+  {
     img: require("./imgs/lesson1.png").default,
-    // img: "/imgs/lesson1.png",
-    progress: "Lesson 1",
-    detail: "Getting to know you",
+    title: "Getting to know you",
   },
   {
-    id: 2,
-    title: "Vocabulary",
     img: require("./imgs/lesson2.png").default,
-    progress: "Lesson 2",
-    detail: "Going to eat pizza",
+    title: "Going to eat pizza",
   },
   {
-    id: 3,
-    title: "Conversation",
     img: require("./imgs/lesson3.png").default,
-    progress: "Lesson 3",
-    detail: "Asking direction",
+    title: "Asking direction",
   },
 ];
