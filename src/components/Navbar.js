@@ -4,7 +4,7 @@ import { useGlobalContext } from "../context";
 import logo from "../logo.svg";
 
 const Navbar = () => {
-  const { userid, username } = useGlobalContext();
+  const { user } = useGlobalContext();
   return (
     <nav className="navbar">
       <div className="nav-center">
@@ -21,7 +21,7 @@ const Navbar = () => {
             <Link to="/about">About</Link>
           </li>
           <li>
-            <Link to="/profile">{username ? `${username}` : `Profile`}</Link>
+            <Link to="/profile">{user ? `${user.username}` : `Profile`}</Link>
           </li>
         </ul>
       </div>

@@ -1,12 +1,19 @@
 import React from "react";
 
-export const user = [
+export const users = [
   {
     id: 1,
-    username: "bob",
+    username: "Bob",
     lesson_progress: 1,
     vocab_progress: 2,
     convo_progress: 3,
+  },
+  {
+    id: 2,
+    username: "Alice",
+    lesson_progress: 2,
+    vocab_progress: 3,
+    convo_progress: 1,
   },
 ];
 

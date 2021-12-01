@@ -1,16 +1,19 @@
 import React from "react";
-import { menu } from "../data";
+import { Link } from "react-router-dom";
 
-const Card = ({ id, title, img, progress, detail }) => {
+const Card = ({ id, material, chapter, img, title }) => {
   return (
-    <div className="card">
-      <h3 className="card-title">{title}</h3>
-      <img src={img} />
-      <div className="card-footer">
-        <h3>{progress}</h3>
-        <p>{detail}</p>
-      </div>
-    </div>
+    <>
+      <Link to={`${material}/${id}`}>
+        <div className="card">
+          <h3 className="card-title">{chapter}</h3>
+          <img src={img} />
+          <div className="card-footer">
+            <p>{title}</p>
+          </div>
+        </div>
+      </Link>
+    </>
   );
 };
 

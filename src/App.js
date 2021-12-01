@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useGlobalContext } from "./context";
 
 // import pages
 import Home from "./pages/Home";
@@ -13,6 +14,14 @@ import Lesson from "./components/Lesson";
 import LessonList from "./components/LessonList";
 
 function App() {
+  const { loading } = useGlobalContext();
+  if (loading) {
+    return (
+      <div className="loading">
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
   return (
     <Router>
       <Navbar />

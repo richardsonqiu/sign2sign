@@ -1,28 +1,41 @@
-import React, {
-  useState,
-  useContext,
-  useEffect,
-  useReducer,
-  useCallback,
-} from "react";
+import React, { useContext, useEffect, useReducer } from "react";
 import reducer from "./reducer";
 import { lessons } from "./data";
+import { users } from "./data/users.json";
+import { materials } from "./data/materials.json";
 
 const AppContext = React.createContext();
 
 const initState = {
-  userid: false,
-  username: "Bob",
-  lessonItems: lessons,
+  loading: true,
+  user: null,
 };
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initState);
 
+  const fetchUser = (userid) => {
+    dispatch({ type: "LOADING" });
+
+    let user = users.find((userItem) => userItem.id === userid);
+    console.log(user);
+    dispatch({ type: "STORE_USER", payload: user });
+  };
+
+  const fetchAllLessons = () => {
+    dispatch({ type: "FETCH_MATERIALS" });
+  };
+
+  // here to fetch userProgress: id = 1 here
+  useEffect(() => {
+    fetchUser(1);
+  }, []);
+
   return (
     <AppContext.Provider
       value={{
         ...state,
+        fetchUser,
       }}
     >
       {children}
