@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useReducer } from "react";
 import reducer from "./reducer";
-import { lessons } from "./data";
 import { users } from "./data/users.json";
-import { materials } from "./data/materials.json";
+// import { materials } from "./data/materials.json";
 
 const AppContext = React.createContext();
 
@@ -20,10 +19,6 @@ const AppProvider = ({ children }) => {
     let user = users.find((userItem) => userItem.id === userid);
     console.log(user);
     dispatch({ type: "STORE_USER", payload: user });
-  };
-
-  const fetchAllLessons = () => {
-    dispatch({ type: "FETCH_MATERIALS" });
   };
 
   // here to fetch userProgress: id = 1 here

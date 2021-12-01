@@ -284,16 +284,15 @@ Card
 ======
 */
 
-.lesson-section {
+.section-material {
     display: flex;
     flex-direction: column;
-    gap: 10px;
 }
 
 .card {
     background: var(--mainWhite);
-    margin-bottom: 1rem;
-    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
     box-shadow: var(--lightShadow);
     transition: var(--mainTransition);
     display: grid;
@@ -335,6 +334,8 @@ Card
 
 .card-footer p {
     font-weight: 400;
+    margin-bottom: 5px;
+    text-transform: capitalize;
 }
 
 

@@ -35,16 +35,22 @@ function App() {
         <Route path="/profile">
           <Profile />
         </Route>
-        <Route path="/lesson">
+        <Route path="/lessons">
           <LessonList />
         </Route>
         <Route path="/lesson/:id">
           <Lesson />
         </Route>
-        {/* <Route path="/conversation">
+        {/* <Route path="/conversations">
           <ConvoList />
         </Route>
-        <Route path="/vocabulary">
+        <Route path="/conversation/:id">
+          <ConvoList />
+        </Route>
+        <Route path="/vocabularies">
+          <VocabList />
+        </Route>
+        <Route path="/vocabulary/:id">
           <VocabList />
         </Route> */}
 

@@ -3,15 +3,15 @@
             "id": 1,
             "username": "Bob",
             "lessonProgress": 1,
-            "vocabProgress": 2,
-            "convoProgress": 3
+            "vocabProgress": 1,
+            "convoProgress": 1
         },
         {
             "id": 2,
             "username": "Alice",
             "lessonProgress": 2,
-            "vocabProgress": 3,
-            "convoProgress": 1
+            "vocabProgress": 2,
+            "convoProgress": 2
         }
     ]
 }

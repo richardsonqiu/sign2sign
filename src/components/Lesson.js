@@ -1,18 +1,24 @@
 import React from "react";
-import { menu } from "../data";
+import { useParams, Link } from "react-router-dom";
+import { chapter1, chapter2, chapter3 } from "../data/lesson1.json";
+import Card from "./Card";
+import { materials } from "../data/materials.json";
+import { useGlobalContext } from "../context";
 
-const Lesson = ({ id, title, img, progress, detail }) => {
-  // console.log({ img });
+const Lesson = () => {
+  const { id } = useParams();
+  const { user } = useGlobalContext();
+
+  const lesson = materials.find(
+    (materialItem) => materialItem.id === user.lessonProgress
+  );
   return (
-    <div className="card">
-      <h3 className="card-title">{title}</h3>
-      <img src={img} />
-      {/* <img src={require(`${img}`).default} alt="" /> */}
-      <div className="card-footer">
-        <h3>{progress}</h3>
-        <p>{detail}</p>
+    <section className="container section">
+      <h1 className="section-title">Lesson {id}</h1>
+      <div className="cards-center">
+        <Card />
       </div>
-    </div>
+    </section>
   );
 };
 
