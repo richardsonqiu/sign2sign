@@ -19,9 +19,9 @@ const LessonList = () => {
             <Card
               key={materialItem.id}
               {...materialItem}
-              material="lesson"
+              url={`lesson/${materialItem.id}`}
               title={`Lesson ${materialItem.id}`}
-              lesson={lesson.title}
+              desc={lesson.title}
             />
           );
         })}

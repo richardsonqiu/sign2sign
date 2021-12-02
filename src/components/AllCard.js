@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const AllCard = ({ material }) => {
+const AllCard = ({ url }) => {
   return (
     <>
-      <Link to={`/${material}`}>
+      <Link to={`/${url}`}>
         <div className="card">
-          <h3 className="card-title">See all {material}</h3>
+          <h3 className="card-title">See all {url}</h3>
         </div>
       </Link>
     </>

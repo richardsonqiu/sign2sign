@@ -29,38 +29,38 @@ const Home = () => {
       <div className="cards-center">
         <div className="section-material">
           <Card
-            material="lesson"
+            url={`lesson/${lesson.id}`}
             id={lesson.id}
             title="Lesson"
-            lesson={lesson.title}
+            desc={lesson.title}
             img={lesson.img}
             isHome="home"
           />
-          <AllCard material="lessons" />
+          <AllCard url="lessons" />
         </div>
 
         <div className="section-material">
           <Card
-            material="vocabulary"
+            url={`lesson/${lesson.id}/vocabulary/${vocab.id}`}
             id={vocab.id}
             title="Vocabulary"
-            lesson={vocab.title}
+            desc={vocab.title}
             img={vocab.img}
             isHome="home"
           />
-          <AllCard material="vocabularies" />
+          <AllCard url="vocabularies" />
         </div>
 
         <div className="section-material">
           <Card
-            material="conversation"
+            url={`lesson/${lesson.id}/conversation`}
             id={convo.id}
             title="Conversation"
-            lesson={convo.title}
+            desc={convo.title}
             img={convo.img}
             isHome="home"
           />
-          <AllCard material="conversations" />
+          <AllCard url="conversations" />
         </div>
       </div>
     </section>

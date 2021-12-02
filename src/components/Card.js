@@ -1,13 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Card = ({ id, material, title, img, lesson, isHome }) => {
+const Card = ({ id, url, title, img, desc, isHome }) => {
   return (
     <>
-      <Link to={`/${material}/${id}`}>
+      {/* <Link to={`/${material}/${id}`}> */}
+      <Link to={`/${url}`}>
         <div className="card">
           <h3 className="card-title">{title}</h3>
-          <img src={img} alt={material} />
+          <img src={img} />
           <div className="card-footer">
             {isHome ? (
               <p>
@@ -16,7 +17,7 @@ const Card = ({ id, material, title, img, lesson, isHome }) => {
             ) : (
               ``
             )}
-            <p>{lesson}</p>
+            <p>{desc}</p>
           </div>
         </div>
       </Link>

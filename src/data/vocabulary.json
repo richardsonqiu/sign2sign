@@ -1,0 +1,9 @@
+{
+    "vocabulary": [{
+        "id": 1,
+        "lessonId": 1,
+        "title": "Greetings",
+        "words": ["hello", "world", "morning", "good", "afternoon"],
+        "quizSentence": ["hello", "world", ",", "good", "morning", "!"]
+    }]
+}

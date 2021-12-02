@@ -1,0 +1,39 @@
+{
+    "word": [{
+            "id": 1,
+            "text": "right",
+            "key": "right_direction",
+            "landmarks": "json"
+        },
+        {
+            "id": 2,
+            "text": "hello",
+            "key": "hello",
+            "landmarks": "json"
+        },
+        {
+            "id": 3,
+            "text": "world",
+            "key": "world",
+            "landmarks": "json"
+        },
+        {
+            "id": 4,
+            "text": "good",
+            "key": "good",
+            "landmarks": "json"
+        },
+        {
+            "id": 5,
+            "text": "morning",
+            "key": "morning",
+            "landmarks": "json"
+        },
+        {
+            "id": 6,
+            "text": "afternoon",
+            "key": "afternoon",
+            "landmarks": "json"
+        }
+    ]
+}

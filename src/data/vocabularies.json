@@ -1,0 +1,35 @@
+{
+    "vocabularies": [{
+            "id": 1,
+            "lessonId": 1,
+            "title": "Greetings",
+            "desc": "10 words",
+            "imgSrc": "./imgs/lesson1.png",
+            "order": 1
+        },
+        {
+            "id": 2,
+            "lessonId": 1,
+            "title": "Pronouns",
+            "desc": "5 words",
+            "imgSrc": "./imgs/lesson1.png",
+            "order": 2
+        },
+        {
+            "id": 3,
+            "lessonId": 2,
+            "title": "Names",
+            "desc": "9 words",
+            "imgSrc": "./imgs/lesson2.png",
+            "order": 1
+        },
+        {
+            "id": 4,
+            "lessonId": 2,
+            "title": "Pronouns",
+            "desc": "4 words",
+            "imgSrc": "./imgs/lesson2.png",
+            "order": 2
+        }
+    ]
+}

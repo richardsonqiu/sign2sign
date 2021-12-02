@@ -1,0 +1,11 @@
+{
+    "conversation": [{
+        "id": 1,
+        "lessonId": 1,
+        "title": "Getting to Know You",
+        "sentences": [
+            ["hello", "world", ",", "good", "morning", "!"],
+            ["hi", ",", "my", "name", "is", "Bob"]
+        ]
+    }]
+}
