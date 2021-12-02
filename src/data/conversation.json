@@ -3,9 +3,11 @@
         "id": 1,
         "lessonId": 1,
         "title": "Getting to Know You",
-        "sentences": [
-            ["hello", "world", ",", "good", "morning", "!"],
-            ["hi", ",", "my", "name", "is", "Bob"]
-        ]
+        "dialog": [{
+            "person": "A",
+            "sentence": ["hello", "world", ",", "good", "morning", "!"],
+            "glossSentence": ["hello", "world", ",", "good", "morning", "!"],
+            "emotion": ["happy", "happy", "happy", "smile", "smile", "smile"]
+        }]
     }]
 }

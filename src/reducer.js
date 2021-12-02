@@ -10,6 +10,15 @@ const reducer = (state, action) => {
       loading: false,
     };
   }
+
+  if (action.type === "STORE_PROGRESS") {
+    return {
+      ...state,
+      lessonProgress: action.payload.lessonProgressId,
+      vocabProgress: action.payload.vocabProgressId,
+      convoProgress: action.payload.convoProgressId,
+    };
+  }
 };
 
 export default reducer;

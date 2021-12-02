@@ -38,20 +38,20 @@ function App() {
         <Route path="/lessons">
           <LessonList />
         </Route>
-        <Route path="/lesson/:id">
+        <Route path="/lesson/:lessonId">
           <Lesson />
         </Route>
         {/* <Route path="/conversations">
           <ConvoList />
         </Route>
-        <Route path="/conversation/:id">
-          <ConvoList />
+        <Route path="/lesson/:lessonId/conversation/:convoId">
+          <Convo />
         </Route>
         <Route path="/vocabularies">
           <VocabList />
         </Route>
-        <Route path="/vocabulary/:id">
-          <VocabList />
+        <Route path="/lesson/:lessonId/vocabulary/:vocabId">
+          <Vocab />
         </Route> */}
 
         <Route path="*">

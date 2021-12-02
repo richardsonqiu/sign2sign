@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Card = ({ id, url, title, img, desc, isHome }) => {
+const Card = ({ progress, url, title, img, desc, isHome }) => {
   return (
     <>
       {/* <Link to={`/${material}/${id}`}> */}
@@ -12,7 +12,7 @@ const Card = ({ id, url, title, img, desc, isHome }) => {
           <div className="card-footer">
             {isHome ? (
               <p>
-                <strong>{`Lesson ${id}`}</strong>
+                <strong>{`Lesson ${progress}`}</strong>
               </p>
             ) : (
               ``

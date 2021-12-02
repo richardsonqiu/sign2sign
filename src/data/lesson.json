@@ -4,26 +4,20 @@
             "lessonId": 1,
             "title": "Greetings",
             "desc": "10 words",
-            "imgSrc": "./imgs/lesson1.png"
+            "imgSrc": "/imgs/lesson1.png"
         },
         {
             "id": 2,
             "lessonId": 1,
             "title": "Pronouns",
             "desc": "5 words",
-            "imgSrc": "./imgs/lesson1.png"
-        },
-        {
-            "id": 3,
-            "img": "./imgs/lesson1.png",
-            "title": "Conversation",
-            "type": "conversation"
+            "imgSrc": "/imgs/lesson1.png"
         }
     ],
     "conversations": [{
         "id": 1,
         "lessonId": 1,
         "title": "Getting to Know You",
-        "imgSrc": "./imgs/lesson1.png"
+        "imgSrc": "/imgs/lesson1.png"
     }]
 }
