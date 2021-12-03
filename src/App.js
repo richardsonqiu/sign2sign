@@ -12,15 +12,14 @@ import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
 import Lesson from "./components/Lesson";
 import LessonList from "./components/LessonList";
+import VocabList from "./pages/VocabList";
+import ConvoList from "./pages/ConvoList";
+import Loading from "./components/Loading";
 
 function App() {
   const { loading } = useGlobalContext();
   if (loading) {
-    return (
-      <div className="loading">
-        <h1>Loading...</h1>
-      </div>
-    );
+    return <Loading />;
   }
   return (
     <Router>
@@ -41,15 +40,17 @@ function App() {
         <Route path="/lesson/:lessonId">
           <Lesson />
         </Route>
-        {/* <Route path="/conversations">
-          <ConvoList />
-        </Route>
-        <Route path="/lesson/:lessonId/conversation/:convoId">
-          <Convo />
-        </Route>
         <Route path="/vocabularies">
           <VocabList />
         </Route>
+        <Route path="/conversations">
+          <ConvoList />
+        </Route>
+        {/* 
+        <Route path="/lesson/:lessonId/conversation/:convoId">
+          <Convo />
+        </Route>
+        
         <Route path="/lesson/:lessonId/vocabulary/:vocabId">
           <Vocab />
         </Route> */}
