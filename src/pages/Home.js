@@ -3,19 +3,24 @@ import { useGlobalContext } from "../context";
 import Loading from "../components/Loading";
 import Card from "../components/Card";
 import AllCard from "../components/AllCard";
-import { lessons } from "../data/lessons.json";
 
 const Home = () => {
-  const { user, lessonProgress, vocabProgress, convoProgress, loading } =
-    useGlobalContext();
+  const {
+    user,
+    lessonProgress,
+    vocabProgress,
+    convoProgress,
+    loading,
+    lessonsData,
+  } = useGlobalContext();
 
   if (loading) {
     <Loading />;
   }
 
-  const lesson = lessons.find((item) => item.id === lessonProgress.id);
-  const vocab = lessons.find((item) => item.id === vocabProgress.lessonId);
-  const convo = lessons.find((item) => item.id === convoProgress.lessonId);
+  const lesson = lessonsData.find((item) => item.id === lessonProgress.id);
+  const vocab = lessonsData.find((item) => item.id === vocabProgress.lessonId);
+  const convo = lessonsData.find((item) => item.id === convoProgress.lessonId);
 
   return (
     <section className="container section">

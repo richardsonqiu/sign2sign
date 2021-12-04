@@ -6,6 +6,7 @@ import {
   vocabulary as vocabProgress,
   conversation as convoProgress,
 } from "./data/progress.json";
+import { lessons as lessonsData } from "./data/lessons.json";
 
 const AppContext = React.createContext();
 
@@ -15,6 +16,7 @@ const initState = {
   lessonProgress: null,
   vocabProgress: null,
   convoProgress: null,
+  lessonsData: null,
 };
 
 const AppProvider = ({ children }) => {
@@ -33,11 +35,6 @@ const AppProvider = ({ children }) => {
     });
   };
 
-  // here to fetch userProgress: id = 1 here
-  useEffect(() => {
-    fetchUser(userData);
-  }, []);
-
   const fetchProgress = (lessonProgress, vocabProgress, convoProgress) => {
     const lessonProgressId = lessonProgress[0];
     const vocabProgressId = vocabProgress[0];
@@ -49,8 +46,15 @@ const AppProvider = ({ children }) => {
     });
   };
 
+  const fetchAllLessons = (lessonsData) => {
+    dispatch({ type: "STORE_LESSONS", payload: lessonsData });
+  };
+
   useEffect(() => {
+    // here to fetch userProgress: id = 1 here
+    fetchUser(userData);
     fetchProgress(lessonProgress, vocabProgress, convoProgress);
+    fetchAllLessons(lessonsData);
   }, []);
 
   return (

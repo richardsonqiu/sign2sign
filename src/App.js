@@ -7,13 +7,13 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Error from "./pages/Error";
 import Profile from "./pages/Profile";
+import LessonList from "./pages/LessonList";
+import VocabList from "./pages/VocabList";
+import ConvoList from "./pages/ConvoList";
 
 // import components
 import Navbar from "./components/Navbar";
 import Lesson from "./components/Lesson";
-import LessonList from "./components/LessonList";
-import VocabList from "./pages/VocabList";
-import ConvoList from "./pages/ConvoList";
 import Loading from "./components/Loading";
 
 function App() {

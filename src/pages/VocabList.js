@@ -4,11 +4,10 @@ import useStateRef from "react-usestateref";
 import Card from "../components/Card";
 import Loading from "../components/Loading";
 import { vocabularies as vocabs } from "../data/vocabularies.json";
-import { lessons } from "../data/lessons.json";
 import { useGlobalContext } from "../context";
 
 const VocabList = () => {
-  const { user, vocabProgress } = useGlobalContext();
+  const { user, vocabProgress, lessonsData } = useGlobalContext();
   const [loading, setLoading] = useStateRef(false);
   var [vocabsGroup, setVocabsGroup] = useStateRef([]);
 
@@ -45,9 +44,7 @@ const VocabList = () => {
     <section className="container section">
       <h3 className="section-title">Vocabularies</h3>
       {vocabsGroup.map((vocabs, index) => {
-        console.log(vocabs);
-        // console.log(index);
-        let lesson = lessons.find((lesson) => lesson.id === index + 1);
+        let lesson = lessonsData.find((lesson) => lesson.id === index + 1);
         return (
           <>
             <h3 className="lesson-title">

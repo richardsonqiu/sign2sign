@@ -19,6 +19,13 @@ const reducer = (state, action) => {
       convoProgress: action.payload.convoProgressId,
     };
   }
+
+  if (action.type === "STORE_LESSONS") {
+    return {
+      ...state,
+      lessonsData: action.payload,
+    };
+  }
 };
 
 export default reducer;

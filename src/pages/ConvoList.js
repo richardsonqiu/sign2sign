@@ -4,15 +4,15 @@ import useStateRef from "react-usestateref";
 import Card from "../components/Card";
 import Loading from "../components/Loading";
 import { conversations as convos } from "../data/conversations.json";
-import { lessons } from "../data/lessons.json";
 import { useGlobalContext } from "../context";
 
 const ConvoList = () => {
-  const { user, convoProgress } = useGlobalContext();
-  const [loading, setLoading] = useStateRef(false);
-  var [convosGroup, setConvosGroup] = useStateRef([]);
+  const { user, convoProgress, lessonsData } = useGlobalContext();
+  const [loading, setLoading] = useState(false);
+  const [convosGroup, setConvosGroup] = useStateRef([]);
 
   function getConvoGroup() {
+    setLoading(true);
     try {
       const response = convos;
       const data = response;
@@ -24,7 +24,7 @@ const ConvoList = () => {
         const convosGroupArray = Object.values(convosGroupByLesson);
         setConvosGroup(convosGroupArray);
       } else {
-        setConvosGroup(null);
+        setConvosGroup([]);
       }
       setLoading(false);
     } catch (error) {
@@ -45,8 +45,7 @@ const ConvoList = () => {
     <section className="container section">
       <h3 className="section-title">Conversations</h3>
       {convosGroup.map((convos, index) => {
-        console.log(convos);
-        let lesson = lessons.find((lesson) => lesson.id === index + 1);
+        let lesson = lessonsData.find((lesson) => lesson.id === index + 1);
         return (
           <>
             <h3 className="lesson-title">

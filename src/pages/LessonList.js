@@ -1,12 +1,11 @@
 import React from "react";
-import Card from "./Card";
-import { lessons } from "../data/lessons.json";
+import Card from "../components/Card";
 import { useGlobalContext } from "../context";
 
 const LessonList = () => {
-  const { user, lessonProgress } = useGlobalContext();
+  const { user, lessonProgress, lessonsData } = useGlobalContext();
 
-  const lesson = lessons.find((item) => item.id === lessonProgress.id);
+  const lesson = lessonsData.find((item) => item.id === lessonProgress.id);
   // console.log(lessons);
   // console.log(lessonProgress.id);
 
@@ -14,7 +13,7 @@ const LessonList = () => {
     <section className="container section">
       <h1 className="section-title">Lessons</h1>
       <div className="cards-center">
-        {lessons.map((item) => {
+        {lessonsData.map((item) => {
           return (
             <Card
               key={item.id}
