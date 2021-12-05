@@ -6,7 +6,7 @@ const AllCard = ({ url }) => {
     <>
       <Link to={`/${url}`}>
         <div className="card">
-          <h3 className="card-title">See all {url}</h3>
+          <h3 className="card-title">See available {url}</h3>
         </div>
       </Link>
     </>

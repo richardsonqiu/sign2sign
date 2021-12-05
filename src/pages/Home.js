@@ -30,7 +30,7 @@ const Home = () => {
           <Card
             url={`lesson/${lessonProgress.id}`}
             progress={lessonProgress.id}
-            title="Lesson"
+            title="My current lesson"
             desc={lesson.title}
             img={lesson.imgSrc}
             isHome="home"
@@ -42,7 +42,7 @@ const Home = () => {
           <Card
             url={`lesson/${vocabProgress.lessonId}/vocabulary/${vocabProgress.id}`}
             progress={vocabProgress.lessonId}
-            title="Vocabulary"
+            title="My current vocabulary"
             desc={vocab.title}
             img={vocab.imgSrc}
             isHome="home"
@@ -54,7 +54,7 @@ const Home = () => {
           <Card
             url={`lesson/${convoProgress.lessonId}/conversation/${convoProgress.id}`}
             progress={convoProgress.lessonId}
-            title="Conversation"
+            title="My current conversation"
             desc={convo.title}
             img={convo.imgSrc}
             isHome="home"
