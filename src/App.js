@@ -8,12 +8,13 @@ import About from "./pages/About";
 import Error from "./pages/Error";
 import Profile from "./pages/Profile";
 import LessonList from "./pages/LessonList";
+import Lesson from "./pages/Lesson";
 import VocabList from "./pages/VocabList";
+import Vocab from "./pages/Vocab";
 import ConvoList from "./pages/ConvoList";
 
 // import components
 import Navbar from "./components/Navbar";
-import Lesson from "./components/Lesson";
 import Loading from "./components/Loading";
 
 function App() {
@@ -37,11 +38,14 @@ function App() {
         <Route path="/lessons">
           <LessonList />
         </Route>
-        <Route path="/lesson/:lessonId">
+        <Route exact path="/lesson/:lessonId">
           <Lesson />
         </Route>
         <Route path="/vocabularies">
           <VocabList />
+        </Route>
+        <Route path="/lesson/:lessonId/vocabulary/:vocabId">
+          <Vocab />
         </Route>
         <Route path="/conversations">
           <ConvoList />
@@ -50,10 +54,7 @@ function App() {
         <Route path="/lesson/:lessonId/conversation/:convoId">
           <Convo />
         </Route>
-        
-        <Route path="/lesson/:lessonId/vocabulary/:vocabId">
-          <Vocab />
-        </Route> */}
+        */}
 
         <Route path="*">
           <Error />

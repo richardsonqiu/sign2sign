@@ -89,7 +89,7 @@ Navbar
 
 .navbar {
     background: var(--mainWhite);
-    height: 5rem;
+    height: 4rem;
     display: flex;
     align-items: center;
     box-shadow: var(--lightShadow);
@@ -123,6 +123,10 @@ Navbar
     color: var(--primaryColor);
     text-decoration: underline var(--primaryColor) 2px;
     text-underline-offset: 0.5rem;
+}
+
+.logo {
+    width: 80%;
 }
 
 
@@ -256,7 +260,7 @@ Cards List
 }
 
 .section-title {
-    font-size: 2rem;
+    font-size: 1.5rem;
     text-align: center;
     margin-bottom: 1rem;
     margin-top: 1rem;
@@ -340,6 +344,52 @@ Card
 
 /* 
 ====== 
+VocabCard 
+======
+*/
+
+.vocab-card {
+    background: var(--mainWhite);
+    margin: 1rem;
+    box-shadow: var(--lightShadow);
+    transition: var(--mainTransition);
+    display: grid;
+    grid-template-rows: auto 1fr;
+    border-radius: var(--lgBorderRadius);
+    justify-content: center;
+}
+
+.vocab-card-title {
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 0;
+}
+
+.vocab-card img {
+    height: 30rem;
+    border-radius: var(--lgBorderRadius);
+    border: 1px solid var(--primaryColor);
+}
+
+.model-prevnext {
+    display: flex;
+    flex-direction: row;
+}
+
+.prev-btn,
+.next-btn {
+    color: var(--primaryColor);
+    font-size: 1.25rem;
+    background: transparent;
+    border-color: transparent;
+    margin: 0 0.5rem;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+
+/* 
+====== 
 Loading 
 ======
 */
@@ -351,4 +401,16 @@ Loading
 
 .lesson-title {
     margin: 40px auto 10px auto;
+}
+
+
+/* 
+====== 
+Error 
+======
+*/
+
+.error {
+    text-align: center;
+    margin-top: calc(100vh/4);
 }

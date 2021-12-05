@@ -1,7 +1,6 @@
 import React from "react";
-import { useParams, Link } from "react-router-dom";
-import Card from "./Card";
-import { lessons } from "../data/lessons.json";
+import { useParams } from "react-router-dom";
+import Card from "../components/Card";
 import {
   vocabularies as lessonVocabs,
   conversations as lessonConvos,
@@ -10,10 +9,10 @@ import { useGlobalContext } from "../context";
 
 const Lesson = () => {
   const { lessonId } = useParams(); // get lesson id from URL
-  const { user, lessonProgress, vocabProgress, convoProgress } =
+  const { user, lessonProgress, vocabProgress, convoProgress, lessonsData } =
     useGlobalContext();
 
-  const lesson = lessons.find((item) => item.id == lessonId);
+  const lesson = lessonsData.find((item) => item.id == lessonId);
 
   return (
     <section className="container section">

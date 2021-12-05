@@ -3,37 +3,37 @@
             "id": 1,
             "text": "right",
             "key": "right_direction",
-            "landmarks": "json"
+            "landmarks": "json_1"
         },
         {
             "id": 2,
             "text": "hello",
             "key": "hello",
-            "landmarks": "json"
+            "landmarks": "json_2"
         },
         {
             "id": 3,
             "text": "world",
             "key": "world",
-            "landmarks": "json"
+            "landmarks": "json_3"
         },
         {
             "id": 4,
             "text": "good",
             "key": "good",
-            "landmarks": "json"
+            "landmarks": "json_4"
         },
         {
             "id": 5,
             "text": "morning",
             "key": "morning",
-            "landmarks": "json"
+            "landmarks": "json_5"
         },
         {
             "id": 6,
             "text": "afternoon",
             "key": "afternoon",
-            "landmarks": "json"
+            "landmarks": "json_6"
         }
     ]
 }

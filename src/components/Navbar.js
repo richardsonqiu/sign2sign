@@ -9,7 +9,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="nav-center">
         <Link to="/">
-          <img src={logo} alt="Sign2Sign Logo" />
+          <img src={logo} alt="Sign2Sign Logo" className="logo" />
         </Link>
         <ul className="nav-links">
           <li>
