@@ -16,6 +16,7 @@ Variables
     --mainOverlay: rgba(35, 10, 36, 0.4);
     --mainBlack: #222;
     --mainGrey: #ececec;
+    --lightGrey: #f3f1f1;
     --darkGrey: #afafaf;
     --mainRed: #bd0303;
     --mainTransition: all 0.3s ease;
@@ -344,7 +345,7 @@ Card
 
 /* 
 ====== 
-VocabCard 
+Vocab
 ======
 */
 
@@ -374,6 +375,7 @@ VocabCard
 .model-prevnext {
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
 }
 
 .prev-btn,
@@ -385,6 +387,111 @@ VocabCard
     margin: 0 0.5rem;
     transition: var(--transition);
     cursor: pointer;
+}
+
+
+/* 
+====== 
+Convo
+======
+*/
+
+.convo-card {
+    background: var(--mainWhite);
+    margin: 1rem;
+    box-shadow: var(--lightShadow);
+    transition: var(--mainTransition);
+    display: flex;
+    flex-direction: column;
+    /* display: grid; */
+    /* grid-template-rows: auto 1fr; */
+    border-radius: var(--lgBorderRadius);
+    justify-content: center;
+    padding-bottom: 1rem;
+}
+
+.convo-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 3rem;
+}
+
+.model-camera {
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    /* display: grid; */
+    /* grid-template-columns: auto 1fr;
+    gap: 1rem; */
+    display: flex;
+    flex-direction: row;
+    /* flex-flow: row wrap; */
+    align-items: center;
+    border-radius: var(--lgBorderRadius);
+    justify-content: center;
+    column-gap: 1rem;
+    row-gap: 1rem;
+    /* padding: 1.5rem; */
+}
+
+.model-camera img {
+    height: 15rem;
+    width: 20rem;
+    border-radius: var(--lgBorderRadius);
+    border: 1px solid var(--primaryColor);
+    /* display: block; */
+}
+
+@media screen and (max-width: 650px) {
+    .model-camera {
+        grid-template-rows: auto;
+        grid-template-columns: none;
+    }
+}
+
+.sentence-gloss {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    /* background-color: var(--lightGrey); */
+    background-color: var(--mainGrey);
+    border-radius: var(--smBorderRadius);
+    padding-top: 1.5rem;
+    z-index: 1;
+}
+
+.gloss-section {
+    /* display: grid; */
+    /* grid-template-columns: auto 1fr; */
+    display: flex;
+    flex-flow: row wrap;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: calc(50vw);
+    text-align: center;
+    /* background-color: var(--mainGrey); */
+    background-color: var(--lightGrey);
+    border-radius: var(--smBorderRadius);
+    padding-bottom: 1rem;
+    padding-top: 0.5rem;
+    margin-top: 0.5rem;
+    z-index: 2;
+}
+
+
+/* @media screen and (min-width: 650px) {
+    .gloss-section {
+        width: calc(50vw)
+    }
+} */
+
+.gloss {
+    background: var(--mainWhite);
+    margin: 0.5rem;
+    box-shadow: var(--lightShadow);
+    border-radius: var(--smBorderRadius);
+    padding: 0.5rem;
+    font-weight: 400;
 }
 
 

@@ -52,7 +52,7 @@ const ConvoList = () => {
               Lesson {index + 1}: {lesson.title}
             </h3>
             <div className="cards-center">
-              {convos.map((item, idx) => {
+              {convos.map((item) => {
                 return (
                   <Card
                     key={item.id}

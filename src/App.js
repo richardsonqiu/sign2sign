@@ -12,6 +12,7 @@ import Lesson from "./pages/Lesson";
 import VocabList from "./pages/VocabList";
 import Vocab from "./pages/Vocab";
 import ConvoList from "./pages/ConvoList";
+import Convo from "./pages/Convo";
 
 // import components
 import Navbar from "./components/Navbar";
@@ -50,11 +51,9 @@ function App() {
         <Route path="/conversations">
           <ConvoList />
         </Route>
-        {/* 
         <Route path="/lesson/:lessonId/conversation/:convoId">
           <Convo />
         </Route>
-        */}
 
         <Route path="*">
           <Error />

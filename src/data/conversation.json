@@ -3,11 +3,23 @@
         "id": 1,
         "lessonId": 1,
         "title": "Getting to Know You",
-        "dialog": [{
-            "person": "A",
-            "sentence": ["hello", "world", ",", "good", "morning", "!"],
-            "glossSentence": ["hello", "world", ",", "good", "morning", "!"],
-            "emotion": ["happy", "happy", "happy", "smile", "smile", "smile"]
-        }]
+        "dialogue": [{
+                "person": "A",
+                "sentence": ["hi, what is your name?"],
+                "glossSentence": ["hi", "your", "name", "what", "?"],
+                "emotion": ["happy", "happy", "happy", "happy", "question"]
+            },
+            {
+                "person": "B",
+                "sentence": ["hi, my name is Bob, and you?"],
+                "glossSentence": ["hi", "my", "name", "B-O-B", "you", "?"],
+                "emotion": ["happy", "happy", "happy", "happy", "question"]
+            }, {
+                "person": "A",
+                "sentence": ["my name is Alice"],
+                "glossSentence": ["my", "name", "A-L-I-C-E"],
+                "emotion": ["happy", "happy", "happy"]
+            }
+        ]
     }]
 }
