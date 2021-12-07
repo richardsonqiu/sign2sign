@@ -1,5 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { useState } from "react";
 import { useGlobalContext } from "./context";
 
 // import pages
@@ -17,14 +18,22 @@ import Convo from "./pages/Convo";
 // import components
 import Navbar from "./components/Navbar";
 import Loading from "./components/Loading";
+import Login from "./components/Login";
+import useToken from "./components/useToken";
 
 function App() {
+  const { token, setToken } = useToken();
+
+  if (!token) {
+    return <Login setToken={setToken} />;
+  }
+
   const { loading } = useGlobalContext();
   if (loading) {
     return <Loading />;
   }
   return (
-    <Router>
+    <BrowserRouter>
       <Navbar />
       <Switch>
         <Route exact path="/">
@@ -59,7 +68,7 @@ function App() {
           <Error />
         </Route>
       </Switch>
-    </Router>
+    </BrowserRouter>
   );
 }
 
