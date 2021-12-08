@@ -6,8 +6,6 @@ const LessonList = () => {
   const { user, lessonProgress, lessonsData } = useGlobalContext();
 
   const lesson = lessonsData.find((item) => item.id === lessonProgress.id);
-  // console.log(lessons);
-  // console.log(lessonProgress.id);
 
   return (
     <section className="container section">

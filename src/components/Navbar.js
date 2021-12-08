@@ -19,7 +19,9 @@ const Navbar = () => {
             <Link to="/about">About</Link>
           </li>
           <li>
-            <Link to="/profile">{user ? `${user.username}` : `Profile`}</Link>
+            <Link to="/profile">
+              {user ? <img src={user.img} className="small" /> : <p>Profile</p>}
+            </Link>
           </li>
         </ul>
       </div>

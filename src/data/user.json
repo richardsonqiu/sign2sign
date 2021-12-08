@@ -1,6 +1,14 @@
 {
     "user": [{
         "id": 1,
-        "username": "Bob"
+        "username": "Bob Rodgers",
+        "join": "July 25, 2021 23:15:30",
+        "img": "imgs/icons/pp-icon.png",
+        "achievement": [{
+            "noLesson": 2,
+            "noVocabulary": 45,
+            "noConversation": 3,
+            "noStreak": 7
+        }]
     }]
 }
