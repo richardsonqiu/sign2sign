@@ -2,13 +2,12 @@ import React from "react";
 import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import useStateRef from "react-usestateref";
-import VocabCard from "../components/VocabCard";
 import Loading from "../components/Loading";
 import { vocabulary as vocabData } from "../data/vocabulary.json";
 import { word } from "../data/word.json"; // get word for particular lesson and vocab
 import { useGlobalContext } from "../context";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import sampleImg from "../imgs/lesson2.png";
+import sampleModel from "../imgs/sample-model.png";
 
 const Vocab = () => {
   const { lessonId, vocabId } = useParams(); // to fetch which lesson and which vocab
@@ -116,7 +115,7 @@ const Vocab = () => {
           <button className="prev-btn" onClick={prevVocab}>
             <FaChevronLeft />
           </button>
-          <img src={sampleImg} />
+          <img src={sampleModel} />
           <button className="next-btn" onClick={nextVocab}>
             <FaChevronRight />
           </button>

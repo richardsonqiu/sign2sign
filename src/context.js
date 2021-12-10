@@ -27,7 +27,7 @@ const AppProvider = ({ children }) => {
     // const userDetailId = user[0].id;
     // const userDetailUsername = user[0].username;
 
-    const user = userData[0];
+    const user = userData;
 
     dispatch({
       type: "STORE_USER",

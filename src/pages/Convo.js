@@ -8,6 +8,8 @@ import { word } from "../data/word.json"; // get word for particular lesson and 
 import { useGlobalContext } from "../context";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import sampleImg from "../imgs/lesson2.png";
+import sampleModel from "../imgs/sample-model.png";
+import sampleUser from "../imgs/sample-user.png";
 
 const Convo = () => {
   const { lessonId, convoId } = useParams(); // to fetch which lesson and which vocab
@@ -111,8 +113,8 @@ const Convo = () => {
         {/* <h3 className="card-title">{lessonVocabs[index]}</h3> */}
         <div className="convo-container">
           <div className="model-camera">
-            <img src={sampleImg} />
-            <img src={sampleImg} />
+            <img src={sampleModel} />
+            <img src={sampleUser} />
           </div>
           <div className="model-prevnext">
             <button className="prev-btn" onClick={prevConvo}>

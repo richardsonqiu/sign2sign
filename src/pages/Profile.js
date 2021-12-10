@@ -1,13 +1,11 @@
 import React from "react";
 import { useGlobalContext } from "../context";
-import sampleIcon from "../imgs/icons/book-icon.png";
 import AchieveCard from "../components/AchieveCard";
-import userProfile from "../data/user.json";
 
 const Profile = () => {
   const { user, lessonProgress, vocabProgress, convoProgress } =
     useGlobalContext();
-  const userAchievement = user.achievement[0];
+  const userAchievement = user.achievement;
   console.log(userAchievement);
 
   const monthChoice = [
