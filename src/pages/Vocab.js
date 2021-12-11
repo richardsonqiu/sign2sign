@@ -12,9 +12,9 @@ import sampleModel from "../imgs/sample-model.png";
 const Vocab = () => {
   const { lessonId, vocabId } = useParams(); // to fetch which lesson and which vocab
   const { user, vocabProgress } = useGlobalContext();
+
   const [loading, setLoading] = useState(true);
-  const [wordbank, setWordbank] = useStateRef([]); // from word.json
-  const [lessonVocabs, setLessonsVocabs] = useState([]); // from vocabularies.words
+  const [words, setWords] = useState([]); // from vocabularies.words
   const [index, setIndex] = useState(0); // to set which vocab is being displayed
   const [currLandmark, setCurrLandmark] = useState(null);
 
@@ -29,32 +29,7 @@ const Vocab = () => {
           (item) => item.lessonId == lessonId && item.id == vocabId
         );
         const vocabWords = lessonVocabs.words;
-        setLessonsVocabs(vocabWords);
-        console.log(vocabWords);
-
-        // Assume "word.json" is fetched
-        const landmark = word.find((item) => item.text === vocabWords[index]);
-        console.log(landmark.landmarks);
-        setCurrLandmark(landmark.landmarks);
-      } else {
-        setLessonsVocabs(null);
-      }
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  }
-
-  function getWordbank() {
-    setLoading(true);
-    try {
-      const response = word;
-      const data = response;
-      if (data) {
-        setWordbank(data);
-      } else {
-        setWordbank(null);
+        setWords(vocabWords);
       }
       setLoading(false);
     } catch (error) {
@@ -64,24 +39,23 @@ const Vocab = () => {
   }
 
   useEffect(() => {
-    getWordbank();
     getVocabs();
   }, []);
 
   function getLandmarks(index) {
     const landmark = wordbank.find(
-      (item) => item.text === lessonVocabs[index]
+      (item) => item.text === words[index]
     ).landmarks;
     setCurrLandmark(landmark);
   }
 
   // Previous and Next Vocab Functions
   function checkIndex(index) {
-    if (index > lessonVocabs.length - 1) {
+    if (index > words.length - 1) {
       return 0;
     }
     if (index < 0) {
-      return lessonVocabs.length - 1;
+      return words.length - 1;
     }
     return index;
   }
@@ -110,7 +84,7 @@ const Vocab = () => {
     <section className="container section">
       <h3 className="section-title">Follow this sign!</h3>
       <div className="vocab-card">
-        <h3 className="card-title">{lessonVocabs[index]}</h3>
+        <h3 className="card-title">{words[index]}</h3>
         <div className="model-prevnext">
           <button className="prev-btn" onClick={prevVocab}>
             <FaChevronLeft />
