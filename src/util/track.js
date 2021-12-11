@@ -70,7 +70,7 @@ export const getTrackAngles = function() {
 
 
 export function getSentenceClipWithTimes(sentence, boneNames) {
-    const wordTracks = sentence.map(word => getTrackAngles(WordJsonMap[word]));
+    const wordTracks = sentence.map(word => getTrackAngles(word));
     
     const wordTimes = [];
     const times = [];

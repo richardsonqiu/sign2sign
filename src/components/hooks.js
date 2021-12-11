@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { VRM } from "@pixiv/three-vrm";
 
-import { loadGLTF, GetBoneNames } from 'util/vrm';
+import { loadGLTF, getBoneNames } from 'util/vrm';
 import { getSentenceClipWithTimes } from 'util/track';
 
 export const useVrm = (vrmSrc) => {
@@ -23,7 +23,7 @@ export const useModelPlayer = () => {
         isPlaying: false,
         sentences: [],
         sentenceClips: [],
-        sentenceIndex: 0,
+        index: 0,
         wordTimes: [],
         time: 0
         // handleAction: () => null
@@ -42,10 +42,10 @@ export const useModelPlayer = () => {
         });
     }
 
-    const setSentenceIndex = (sentenceIndex) => {
+    const setIndex = (index) => {
         setPlayerState({
             ...playerState,
-            sentenceIndex,
+            index,
             time: 0,
             isPlaying: false
         });
@@ -54,7 +54,7 @@ export const useModelPlayer = () => {
     const loadSentenceClips = (vrm) => {
         if (!vrm) return;
 
-        const boneNames = GetBoneNames(vrm);
+        const boneNames = getBoneNames(vrm);
         const sc = playerState.sentences.map(sentence => getSentenceClipWithTimes(sentence, boneNames));
         
         setPlayerState({
@@ -88,7 +88,7 @@ export const useModelPlayer = () => {
     const seekWord = (wordIndex) => {
         setPlayerState({
             ...playerState,
-            time: playerState.wordTimes[playerState.sentenceIndex][wordIndex]
+            time: playerState.wordTimes[playerState.index][wordIndex]
         })
     }
 
@@ -97,7 +97,7 @@ export const useModelPlayer = () => {
         handleFrame,
         loadSentenceClips,
         setSentences,
-        setSentenceIndex,
+        setIndex,
         play,
         stop,
         seek,

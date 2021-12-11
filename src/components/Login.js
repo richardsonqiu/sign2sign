@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import config from "config";
 import logo from "../logo.svg";
 
 async function loginUser(credentials) {
-  return fetch("http://localhost:8080/login", {
+  return fetch(`http://${config.api.host}:${config.api.port}/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

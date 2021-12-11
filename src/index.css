@@ -653,6 +653,17 @@ Vocab
     border: 1px solid var(--primaryColor);
 }
 
+.model-player {
+    height: 450px;
+    width: 450px;
+}
+
+@media (max-width: 768px) {
+    .model-player {
+        width: 280px;
+    }
+}
+
 .model-prevnext {
     display: flex;
     flex-direction: row;

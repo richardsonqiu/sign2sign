@@ -203,7 +203,7 @@ function fingerAngles(handPoints, finger, root, rootAxes) {
 }
 
 export function armAngles(posePoints, side, handPoints) {
-    const {body_n_z, shoulder, upper_arm, lower_arm, lower_arm_n_z, hand, hand_n_y} = calc_pose_vectors(posePoints, side);
+    var {body_n_z, shoulder, upper_arm, lower_arm, lower_arm_n_z, hand, hand_n_y} = calc_pose_vectors(posePoints, side);
 
     var angles = {};
     

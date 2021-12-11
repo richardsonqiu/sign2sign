@@ -3,7 +3,7 @@
         "id": 1,
         "lessonId": 1,
         "title": "Greetings",
-        "words": ["hello", "world", "morning", "good", "afternoon"],
+        "words": ["born", "bear", "banana", "baby", "can"],
         "quizSentence": ["hello", "world", ",", "good", "morning", "!"]
     }]
 }

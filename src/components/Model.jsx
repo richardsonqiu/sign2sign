@@ -9,7 +9,7 @@ export const Model = ({ vrm, playerState, handleFrame }) => {
     const actions = useRef([]);
 
     const currentAction = () => {
-        return actions.current[playerState.sentenceIndex];
+        return actions.current[playerState.index];
     };
 
     useFrame((state, delta) => {
@@ -50,7 +50,7 @@ export const Model = ({ vrm, playerState, handleFrame }) => {
         action.paused = !playerState.isPlaying;
         action.time = 0;
 
-    }, [playerState.sentenceClips, playerState.sentenceIndex]);
+    }, [playerState.sentenceClips, playerState.index]);
 
     useEffect(() => {
         const action = currentAction();
@@ -62,7 +62,7 @@ export const Model = ({ vrm, playerState, handleFrame }) => {
     }, [playerState.time, playerState.isPlaying])
 
     // useEffect(() => {
-    //     const action = actions.current[sentenceIndex];
+    //     const action = actions.current[index];
     //     if (action) handleAction(action);
 
     // }, [handleAction]);
