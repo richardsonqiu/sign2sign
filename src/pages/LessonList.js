@@ -1,24 +1,26 @@
+import Loading from "components/Loading";
 import React from "react";
 import Card from "../components/Card";
 import { useGlobalContext } from "../context";
 
 const LessonList = () => {
-  const { user, lessonProgress, lessonsData } = useGlobalContext();
+  const { lessons } = useGlobalContext();
 
-  const lesson = lessonsData.find((item) => item.id === lessonProgress.id);
+  if (!lessons) {
+    return <Loading />
+  }
 
   return (
     <section className="container section">
       <h1 className="section-title">Lessons</h1>
       <div className="cards-center">
-        {lessonsData.map((item) => {
+        {lessons.map((item) => {
           return (
             <Card
-              key={item.id}
-              {...item}
-              url={`lesson/${item.id}`}
-              title={`Lesson ${item.id}`}
-              img={item.imgSrc}
+              key={item.lessonId}
+              url={`lesson/${item.lessonId}`}
+              title={`Lesson ${item.lessonId}`}
+              img={item.img}
               desc={item.title}
             />
           );

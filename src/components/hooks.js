@@ -73,16 +73,23 @@ export const useModelPlayer = () => {
     }
 
     const loadSentenceClips = (vrm) => {
-        if (!vrm) return;
+        const fetchClips = async () => {
+            const boneNames = getBoneNames(vrm);
 
-        const boneNames = getBoneNames(vrm);
-        const sc = playerState.sentences.map(sentence => getSentenceClipWithTimes(sentence, boneNames));
-        
-        setPlayerState({
-            ...playerState,
-            sentenceClips: sc.map(x => x.clip),
-            wordTimes: sc.map(x => x.wordTimes)
-        });
+            const clips = [];
+            for (const sentence of playerState.sentences) {
+                clips.push(await getSentenceClipWithTimes(sentence, boneNames));
+            }
+            
+            setPlayerState({
+                ...playerState,
+                sentenceClips: clips.map(x => x.clip),
+                wordTimes: clips.map(x => x.wordTimes)
+            });
+        }
+
+        if (!vrm) return;
+        fetchClips();
     }
 
     const play = () => {

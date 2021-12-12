@@ -1,7 +1,6 @@
+import { getWord } from "api";
 import { Euler, Quaternion, QuaternionKeyframeTrack, Vector3, AnimationClip } from "three";
-
 import { armAngles } from "utils/pose"; 
-import { WordJsonMap } from "tracks/data";
 
 
 function landmarksToVector3(landmarks, normFactor={x: 16/9, y: 1, z: 16/9}) {
@@ -14,8 +13,9 @@ function landmarksToVector3(landmarks, normFactor={x: 16/9, y: 1, z: 16/9}) {
         ));
 }
 
-function fetchTrack(word) {
-    return WordJsonMap[word];
+async function fetchTrack(word) {
+    const res = await getWord(word);
+    return res.data.track;
 }
 
 function processAngles(jsonTrack) {
@@ -58,9 +58,9 @@ function processAngles(jsonTrack) {
 
 export const getTrackAngles = function() {
     const cache = {};
-    return word => {
+    return async word => {
         if (!cache[word]) {
-            const track = fetchTrack(word);
+            const track = await fetchTrack(word);
             cache[word] = processAngles(track);
         }
         
@@ -69,8 +69,11 @@ export const getTrackAngles = function() {
 }()
 
 
-export function getSentenceClipWithTimes(sentence, boneNames) {
-    const wordTracks = sentence.map(word => getTrackAngles(word));
+export async function getSentenceClipWithTimes(sentence, boneNames) {
+    const wordTracks = [];
+    for (const word of sentence) {
+        wordTracks.push(await getTrackAngles(word));
+    }
     
     const wordTimes = [];
     const times = [];

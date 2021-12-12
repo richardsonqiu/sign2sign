@@ -36,7 +36,7 @@ export const Model = ({ vrm, playerState, handleFrame }) => {
     }, [vrm]);
 
     useEffect(() => {
-        if (!mixer.current) return;
+        if (!playerState.sentenceClips || !mixer.current) return;
         actions.current = playerState.sentenceClips.map(clip => mixer.current.clipAction(clip));
 
     }, [playerState.sentenceClips]);

@@ -11,19 +11,10 @@ const reducer = (state, action) => {
     };
   }
 
-  if (action.type === "STORE_PROGRESS") {
-    return {
-      ...state,
-      lessonProgress: action.payload.lessonProgressId,
-      vocabProgress: action.payload.vocabProgressId,
-      convoProgress: action.payload.convoProgressId,
-    };
-  }
-
   if (action.type === "STORE_LESSONS") {
     return {
       ...state,
-      lessonsData: action.payload,
+      lessons: action.payload,
     };
   }
 };

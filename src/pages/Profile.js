@@ -3,10 +3,9 @@ import { useGlobalContext } from "../context";
 import AchieveCard from "../components/AchieveCard";
 
 const Profile = () => {
-  const { user, lessonProgress, vocabProgress, convoProgress } =
-    useGlobalContext();
+  const { user } = useGlobalContext();
+
   const userAchievement = user.achievement;
-  console.log(userAchievement);
 
   const monthChoice = [
     "January",
@@ -22,7 +21,7 @@ const Profile = () => {
     "November",
     "December",
   ];
-  const userJoinDate = new Date(user.join);
+  const userJoinDate = new Date(user.joinDate);
   const month = monthChoice[userJoinDate.getMonth()];
   const year = userJoinDate.getFullYear();
 

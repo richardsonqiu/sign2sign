@@ -1,26 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useGlobalContext } from "../context";
 import Loading from "../components/Loading";
 import Card from "../components/Card";
 import AllCard from "../components/AllCard";
+import { getProgress } from "api";
 
 const Home = () => {
-  const {
-    user,
-    lessonProgress,
-    vocabProgress,
-    convoProgress,
-    loading,
-    lessonsData,
-  } = useGlobalContext();
+  const { user } = useGlobalContext();
+  const [progress, setProgress] = useState(null);
 
-  if (loading) {
-    <Loading />;
+  useEffect(() => {
+    const fetchProgress = async () => {
+      const res = await getProgress();
+      setProgress(res.data);
+    };
+    
+    fetchProgress();
+  }, []);
+
+  if (!progress) {
+    return <Loading />;
   }
 
-  const lesson = lessonsData.find((item) => item.id === lessonProgress.id);
-  const vocab = lessonsData.find((item) => item.id === vocabProgress.lessonId);
-  const convo = lessonsData.find((item) => item.id === convoProgress.lessonId);
+  const { lesson, vocab, convo } = progress;
 
   return (
     <section className="container section">
@@ -28,11 +30,11 @@ const Home = () => {
       <div className="cards-center">
         <div className="section-material">
           <Card
-            url={`lesson/${lessonProgress.id}`}
-            progress={lessonProgress.id}
+            url={`lesson/${lesson.lessonId}`}
+            progress={lesson.lessonId}
             title="My current lesson"
             desc={lesson.title}
-            img={lesson.imgSrc}
+            img={lesson.img}
             isHome="home"
           />
           <AllCard url="lessons" />
@@ -40,11 +42,11 @@ const Home = () => {
 
         <div className="section-material">
           <Card
-            url={`lesson/${vocabProgress.lessonId}/vocabulary/${vocabProgress.id}`}
-            progress={vocabProgress.lessonId}
+            url={`lesson/${vocab.lessonId}/vocabulary/${vocab.vocabIndex}`}
+            progress={vocab.lessonId}
             title="My current vocabulary"
             desc={vocab.title}
-            img={vocab.imgSrc}
+            img={vocab.img}
             isHome="home"
           />
           <AllCard url="vocabularies" />
@@ -52,11 +54,11 @@ const Home = () => {
 
         <div className="section-material">
           <Card
-            url={`lesson/${convoProgress.lessonId}/conversation/${convoProgress.id}`}
-            progress={convoProgress.lessonId}
+            url={`lesson/${convo.lessonId}/conversation/${convo.convoIndex}`}
+            progress={convo.lessonId}
             title="My current conversation"
             desc={convo.title}
-            img={convo.imgSrc}
+            img={convo.img}
             isHome="home"
           />
           <AllCard url="conversations" />

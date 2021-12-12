@@ -1,71 +1,59 @@
 import React from "react";
-import { useEffect, useState, useCallback } from "react";
-import useStateRef from "react-usestateref";
+import { useEffect, useState } from "react";
 import Card from "../components/Card";
 import Loading from "../components/Loading";
 import { conversations as convos } from "../data/conversations.json";
 import { useGlobalContext } from "../context";
+import { getConversations } from "api";
 
 const ConvoList = () => {
-  const { user, convoProgress, lessonsData } = useGlobalContext();
-  const [loading, setLoading] = useState(false);
-  const [convosGroup, setConvosGroup] = useStateRef([]);
-
-  function getConvoGroup() {
-    setLoading(true);
-    try {
-      const response = convos;
-      const data = response;
-      if (data) {
-        var convosGroupByLesson = data.reduce((r, item) => {
-          r[item.lessonId] = [...(r[item.lessonId] || []), item];
-          return r;
-        }, {});
-        const convosGroupArray = Object.values(convosGroupByLesson);
-        setConvosGroup(convosGroupArray);
-      } else {
-        setConvosGroup([]);
-      }
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  }
+  const { lessons } = useGlobalContext();
+  var [convosGroup, setConvosGroup] = useState([]);
 
   useEffect(() => {
-    getConvoGroup();
+    const fetchVocabs = async() => {
+      const res = await getConversations();
+      const convos = res.data.conversations;
+
+      const convosGroupByLesson = convos.reduce((r, item) => {
+        r[item.lessonId] = [...(r[item.lessonId] || []), item];
+        return r;
+      }, {});
+
+      setConvosGroup(convosGroupByLesson);
+    }
+    
+    fetchVocabs();
   }, []);
 
-  if (loading) {
+  if (!convos) {
     return <Loading />;
   }
 
   return (
     <section className="container section">
       <h3 className="section-title">Conversations</h3>
-      {convosGroup.map((convos, index) => {
-        let lesson = lessonsData.find((lesson) => lesson.id === index + 1);
+      {Object.entries(convosGroup).map(([lessonId, convos]) => {
+        let lesson = lessons.find(x => x.lessonId == lessonId);
         return (
-          <>
+          <div key={lessonId}>
             <h3 className="lesson-title">
-              Lesson {index + 1}: {lesson.title}
+              Lesson {lessonId}: {lesson.title}
             </h3>
             <div className="cards-center">
               {convos.map((item) => {
                 return (
                   <Card
-                    key={item.id}
-                    {...item}
-                    url={`lesson/${item.lessonId}/conversation/${item.order}`}
+                    key={item.convoIndex}
+                    url={`lesson/${lessonId}/conversation/${item.convoIndex}`}
                     title={`${item.title}`}
-                    img={item.imgSrc}
+                    img={item.img}
                     desc={item.desc}
                   />
                 );
               })}
             </div>
-          </>
+          </div>
         );
       })}
     </section>

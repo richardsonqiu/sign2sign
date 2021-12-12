@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { useState } from "react";
 import { useGlobalContext } from "./context";
 
 // import pages
@@ -54,13 +53,13 @@ function App() {
         <Route path="/vocabularies">
           <VocabList />
         </Route>
-        <Route path="/lesson/:lessonId/vocabulary/:vocabId">
+        <Route path="/lesson/:lessonId/vocabulary/:vocabIndex">
           <Vocab />
         </Route>
         <Route path="/conversations">
           <ConvoList />
         </Route>
-        <Route path="/lesson/:lessonId/conversation/:convoId">
+        <Route path="/lesson/:lessonId/conversation/:convoIndex">
           <Convo />
         </Route>
 

@@ -1,19 +1,16 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { FaAngleDoubleLeft, FaChevronLeft, FaChevronRight, FaPause, FaPlay, FaSquare, FaSyncAlt, FaUndo, FaUndoAlt } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaPause, FaPlay, FaSquare } from "react-icons/fa";
 
-import { useGlobalContext } from "../context";
 import Loading from "../components/Loading";
 import { ModelPlayer } from "components/ModelPlayer";
 import { useModelPlayer } from "components/hooks";
-
-import { vocabulary as vocabData } from "../data/vocabulary.json";
+import { getVocab } from "api";
 
 const Vocab = () => {
-  const { lessonId, vocabId } = useParams(); // to fetch which lesson and which vocab
-  const { user, vocabProgress } = useGlobalContext();
+  const { lessonId, vocabIndex } = useParams(); // to fetch which lesson and which vocab
+  const [vocab, setVocab] = useState(null);
 
-  const [loading, setLoading] = useState(true);
   const {
     playerState,
     handleFrame,
@@ -26,28 +23,16 @@ const Vocab = () => {
   const word = playerState.sentences[playerState.index]?.at(0);
   const wordDuration = playerState.wordTimes[playerState.index]?.at(-1);
 
-  // Data fetching
-  function fetchWords() {
-    setLoading(true);
-    try {
-      const response = vocabData;
-      const data = response;
-      if (data) {
-        const lessonVocabs = data.find(
-          (item) => item.lessonId == lessonId && item.id == vocabId
-        );
-        const vocabWords = lessonVocabs.words;
-        setSentences(vocabWords.map(word => [word]));
-      }
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  }
-
   useEffect(() => {
-    fetchWords();
+    const fetchVocabAndLoadWords = async () => {
+      const res = await getVocab(lessonId, vocabIndex);
+      const vocab = res.data;
+
+      setVocab(vocab);
+      setSentences(vocab.words.map(word => [word]));
+    };
+
+    fetchVocabAndLoadWords();
   }, []);
 
   // Previous and Next Vocab Functions
@@ -71,7 +56,7 @@ const Vocab = () => {
     setIndex(newIndex);
   }
 
-  if (loading) {
+  if (!vocab) {
     return <Loading />;
   }
 

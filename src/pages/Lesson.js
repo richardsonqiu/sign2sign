@@ -1,18 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Card from "../components/Card";
-import {
-  vocabularies as lessonVocabs,
-  conversations as lessonConvos,
-} from "../data/lesson.json";
-import { useGlobalContext } from "../context";
+import { getLesson } from "api";
+import Loading from "components/Loading";
 
 const Lesson = () => {
   const { lessonId } = useParams(); // get lesson id from URL
-  const { user, lessonProgress, vocabProgress, convoProgress, lessonsData } =
-    useGlobalContext();
+  const [lesson, setLesson] = useState(null);
 
-  const lesson = lessonsData.find((item) => item.id == lessonId);
+  useEffect(() => {
+    const fetchLesson = async () => {
+      const res = await getLesson(lessonId);
+      setLesson(res.data);
+    }
+
+    fetchLesson();
+  }, []);
+
+  if (!lesson) {
+    return <Loading />
+  }
 
   return (
     <section className="container section">
@@ -20,26 +27,26 @@ const Lesson = () => {
         Lesson {lessonId}: {lesson.title}
       </h1>
       <div className="cards-center">
-        {lessonVocabs.map((item) => {
+        {lesson.vocabularies.map((item, index) => {
           return (
             <Card
-              key={item.id}
+              key={index}
               {...item}
-              url={`lesson/${lessonId}/vocabulary/${item.id}`}
+              url={`lesson/${lessonId}/vocabulary/${item.index}`}
               title={item.title}
-              img={item.imgSrc}
+              img={item.img}
               desc={item.desc} // count # words in vocab API
             />
           );
         })}
 
-        {lessonConvos.map((item) => {
+        {lesson.conversations.map((item, index) => {
           return (
             <Card
-              key={item.id}
-              url={`lesson/${lessonId}/conversation/${item.id}`}
+              key={index}
+              url={`lesson/${lessonId}/conversation/${index}`}
               title="Conversation"
-              img={item.imgSrc}
+              img={item.img}
               desc={item.title}
             />
           );

@@ -1,119 +1,81 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-// import useStateRef from "react-usestateref";
 import Loading from "../components/Loading";
-import { conversation as convoData } from "../data/conversation.json";
-import { word } from "../data/word.json"; // get word for particular lesson and vocab
-import { useGlobalContext } from "../context";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import sampleImg from "../imgs/lesson2.png";
-import sampleModel from "../imgs/sample-model.png";
 import sampleUser from "../imgs/sample-user.png";
+import { getConversation } from "api";
+import { useModelPlayer } from "components/hooks";
+import { ModelPlayer } from "components/ModelPlayer";
 
 const Convo = () => {
-  const { lessonId, convoId } = useParams(); // to fetch which lesson and which vocab
-  const { user, vocabProgress } = useGlobalContext();
-  const [loading, setLoading] = useState(true);
-  const [wordbank, setWordbank] = useState([]); // from word.json
-  const [dialogue, setDialogue] = useState([]); // from conversation.dialog
-  const [glossSentences, setGlossSentences] = useState([]); // from conversation.dialog.glossSentence
-  const [oriSentences, setOriSentences] = useState([]); // from conversation.dialog.sentence
-  const [index, setIndex] = useState(0); // to set which glossSentence is being displayed
+  const { lessonId, convoIndex } = useParams(); // to fetch which lesson and which vocab
+  const [convo, setConvo] = useState(null);
 
-  // Data fetching
-  function getConvos() {
-    setLoading(true);
-    try {
-      const response = convoData;
-      const data = response;
-      if (data) {
-        const lessonConvos = data.find(
-          (item) => item.lessonId == lessonId && item.id == convoId
-        );
-        const convoDialog = lessonConvos.dialogue;
-        setDialogue(convoDialog);
-
-        const glossSentenceList = [];
-        const oriSentenceList = [];
-        convoDialog.map((item) => {
-          glossSentenceList.push(item.glossSentence);
-          oriSentenceList.push(item.sentence);
-        });
-        setGlossSentences(glossSentenceList);
-        setOriSentences(oriSentenceList);
-      } else {
-        setDialogue(null);
-      }
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  }
-
-  function getWordbank() {
-    setLoading(true);
-    try {
-      const response = word;
-      const data = response;
-      if (data) {
-        setWordbank(data);
-      } else {
-        setWordbank(null);
-      }
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  }
+  const {
+    playerState,
+    handleFrame,
+    loadSentenceClips,
+    setSentences, setIndex,
+    seek, play, stop, reset
+  } = useModelPlayer();
 
   useEffect(() => {
-    getWordbank();
-    getConvos();
+    const fetchConvo = async () => {
+      const res = await getConversation(lessonId, convoIndex);
+      const convo = res.data;
+
+      setConvo(convo);
+      setSentences(convo.dialogue.map(d => d.glossSentence));
+    }
+
+    fetchConvo();
   }, []);
 
-  // Previous and Next Vocab Functions
+  // Previous and Next Convo Functions
   function checkIndex(index) {
-    if (index > dialogue.length - 1) {
+    if (index > playerState.sentences.length - 1) {
       return 0;
     }
     if (index < 0) {
-      return dialogue.length - 1;
+      return playerState.sentences.length - 1;
     }
     return index;
   }
 
   function prevConvo() {
-    setIndex((index) => {
-      let newIndex = index - 1;
-      return checkIndex(newIndex);
-    });
+    const newIndex = checkIndex(playerState.index - 1);
+    setIndex(newIndex);
   }
 
   function nextConvo() {
-    setIndex((index) => {
-      let newIndex = index + 1;
-      return checkIndex(newIndex);
-    });
+    const newIndex = checkIndex(playerState.index + 1);
+    setIndex(newIndex);
   }
 
-  const currGloss = glossSentences[index];
-  const currSentence = oriSentences[index];
-
-  if (loading) {
+  if (!convo || !playerState.sentences.length) {
     return <Loading />;
   }
 
+  const text = convo.dialogue[playerState.index].sentence;
+  
+  const gloss = playerState.sentences[playerState.index];
+  const wordTimes = playerState.wordTimes[playerState.index];
+
   return (
     <section className="container section">
-      <h3 className="section-title">(lesson title)</h3>
+      <h3 className="section-title">{convo.title}</h3>
       <div className="convo-card">
         {/* <h3 className="card-title">{lessonVocabs[index]}</h3> */}
         <div className="convo-container">
           <div className="model-camera">
-            <img src={sampleModel} />
+            <div className="model-player">
+              <ModelPlayer
+                playerState={playerState}
+                handleFrame={handleFrame}
+                loadSentenceClips={loadSentenceClips}
+              />
+            </div>
             <img src={sampleUser} />
           </div>
           <div className="model-prevnext">
@@ -121,7 +83,7 @@ const Convo = () => {
               <FaChevronLeft />
             </button>
             <div className="sentence-gloss">
-              {currSentence.map((item, id) => {
+              {text.map((item, id) => {
                 return (
                   <>
                     <span key={id}>{item}</span>
@@ -130,9 +92,13 @@ const Convo = () => {
               })}
 
               <div className="gloss-section">
-                {currGloss.map((item, id) => {
+                {gloss.map((item, index) => {
                   return (
-                    <span className="gloss" key={id}>
+                    <span
+                      className="gloss"
+                      key={index}
+                      onClick={() => seek(wordTimes[index])}
+                    >
                       {item}
                     </span>
                   );
