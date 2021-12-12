@@ -653,6 +653,12 @@ Vocab
     border: 1px solid var(--primaryColor);
 }
 
+.model-prevnext {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
 .model-player {
     height: 450px;
     width: 450px;
@@ -664,10 +670,47 @@ Vocab
     }
 }
 
-.model-prevnext {
+.model-controls {
+    margin: 0 2rem;
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
+}
+
+.model-controls .play-pause {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 0.75rem;
+    font-size: 1.5em;
+    color: var(--primaryColor);
+    transition: var(--mainTransition);
+}
+
+.model-controls .play-pause:hover {
+    filter: brightness(0.8);
+}
+
+.model-controls input[type="range"] {
+    appearance: none;
+    flex-grow: 1;
+    height: 10px;
+    border-radius: 5px;
+    background: var(--mainGrey);
+}
+
+.model-controls input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    background: var(--primaryColor);
+    transition: var(--mainTransition);
+}
+
+.model-controls input[type="range"]::-webkit-slider-thumb:hover {
+    filter: brightness(0.8);
 }
 
 .prev-btn,

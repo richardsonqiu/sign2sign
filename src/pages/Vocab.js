@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaAngleDoubleLeft, FaChevronLeft, FaChevronRight, FaPause, FaPlay, FaSquare, FaSyncAlt, FaUndo, FaUndoAlt } from "react-icons/fa";
 
 import { useGlobalContext } from "../context";
 import Loading from "../components/Loading";
@@ -14,7 +14,17 @@ const Vocab = () => {
   const { user, vocabProgress } = useGlobalContext();
 
   const [loading, setLoading] = useState(true);
-  const { playerState, handleFrame, loadSentenceClips, setSentences, setIndex } = useModelPlayer();
+  const {
+    playerState,
+    handleFrame,
+    loadSentenceClips,
+    setSentences, setIndex,
+    seek, play, stop, reset
+  } = useModelPlayer();
+
+  // Current word from player state
+  const word = playerState.sentences[playerState.index]?.at(0);
+  const wordDuration = playerState.wordTimes[playerState.index]?.at(-1);
 
   // Data fetching
   function fetchWords() {
@@ -69,7 +79,7 @@ const Vocab = () => {
     <section className="container section">
       <h3 className="section-title">Follow this sign!</h3>
       <div className="vocab-card">
-        <h3 className="card-title">{playerState.sentences[playerState.index]?.at(0)}</h3>
+        <h3 className="card-title">{word}</h3>
         <div className="model-prevnext">
           <button className="prev-btn" onClick={prevVocab}>
             <FaChevronLeft />
@@ -86,7 +96,34 @@ const Vocab = () => {
           </button>
         </div>
         <div className="card-footer">
-          <p>(Player Component)</p>
+          <div className="model-controls">
+            <div
+            className="play-pause"
+              onClick={() =>
+                (Math.abs(playerState.time - wordDuration) < 0.01)
+                  ? reset()
+                  : (playerState.isPlaying)
+                    ? stop()
+                    : play()
+              }
+            >
+              {
+                (Math.abs(playerState.time - wordDuration) < 0.01)
+                ? <FaSquare />
+                : (playerState.isPlaying)
+                  ? <FaPause />
+                  : <FaPlay />
+              }
+            </div>
+            <input
+              type="range"
+              min={0}
+              max={wordDuration}
+              step={0.01}
+              value={playerState.time}
+              onInput={e => seek(parseFloat(e.target.value))}
+            />
+          </div>
         </div>
       </div>
     </section>

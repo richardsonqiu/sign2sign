@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import { AnimationMixer } from "three";
+import { AnimationMixer, LoopOnce } from "three";
 import { VRMSchema } from "@pixiv/three-vrm"
 import { useFrame } from '@react-three/fiber'
 
@@ -47,6 +47,8 @@ export const Model = ({ vrm, playerState, handleFrame }) => {
 
         mixer.current.stopAllAction();
         action.play();
+        action.loop = LoopOnce;
+        action.clampWhenFinished = true;
         action.paused = !playerState.isPlaying;
         action.time = 0;
 

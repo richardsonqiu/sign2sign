@@ -1,6 +1,6 @@
 import { Euler, Quaternion, QuaternionKeyframeTrack, Vector3, AnimationClip } from "three";
 
-import { armAngles } from "util/pose"; 
+import { armAngles } from "utils/pose"; 
 import { WordJsonMap } from "tracks/data";
 
 

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { VRM } from "@pixiv/three-vrm";
 
-import { loadGLTF, getBoneNames } from 'util/vrm';
-import { getSentenceClipWithTimes } from 'util/track';
+import { loadGLTF, getBoneNames } from 'utils/vrm';
+import { getSentenceClipWithTimes } from 'utils/track';
 
 export const useVrm = (vrmSrc) => {
     const [vrm, setVrm] = useState(null);
@@ -30,8 +30,29 @@ export const useModelPlayer = () => {
     });
 
     const handleFrame = (action) => {
+        if (!playerState.isPlaying) {
+            return;
+        }
+
+        // Check action has ended
+        const wordTimes = playerState.wordTimes[playerState.index]
+        const end = wordTimes.at(-1);
+        if (Math.abs(action.time - end) < 0.01) {
+            setPlayerState({
+                ...playerState,
+                isPlaying: false,
+                time: end
+            });
+            return;
+        }
+
+        // Periodically update player state to sync up with action
         if (action.time - playerState.time > 0.1) {
-            setPlayerState({ ...playerState, time: action.time });
+            setPlayerState({
+                ...playerState,
+                time: action.time
+            });
+            return;
         }
     }
 
@@ -78,6 +99,14 @@ export const useModelPlayer = () => {
         });
     }
 
+    const reset = () => {
+        setPlayerState({
+            ...playerState,
+            isPlaying: true,
+            time: 0
+        });
+    }
+
     const seek = (time) => {
         setPlayerState({
             ...playerState,
@@ -101,6 +130,7 @@ export const useModelPlayer = () => {
         play,
         stop,
         seek,
+        reset,
         seekWord
     }
 }
