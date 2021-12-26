@@ -22,7 +22,7 @@ const Home = () => {
     return <Loading />;
   }
 
-  const { lesson, vocab, convo } = progress;
+  const { lesson, vocabulary, conversation } = progress;
 
   return (
     <section className="container section">
@@ -42,11 +42,11 @@ const Home = () => {
 
         <div className="section-material">
           <Card
-            url={`lesson/${vocab.lessonId}/vocabulary/${vocab.vocabIndex}`}
-            progress={vocab.lessonId}
+            url={`lesson/${vocabulary.lessonId}/vocabulary/${vocabulary.vocabIndex}`}
+            progress={vocabulary.lessonId}
             title="My current vocabulary"
-            desc={vocab.title}
-            img={vocab.img}
+            desc={vocabulary.title}
+            img={vocabulary.img}
             isHome="home"
           />
           <AllCard url="vocabularies" />
@@ -54,11 +54,11 @@ const Home = () => {
 
         <div className="section-material">
           <Card
-            url={`lesson/${convo.lessonId}/conversation/${convo.convoIndex}`}
-            progress={convo.lessonId}
+            url={`lesson/${conversation.lessonId}/conversation/${conversation.convoIndex}`}
+            progress={conversation.lessonId}
             title="My current conversation"
-            desc={convo.title}
-            img={convo.img}
+            desc={conversation.title}
+            img={conversation.img}
             isHome="home"
           />
           <AllCard url="conversations" />
