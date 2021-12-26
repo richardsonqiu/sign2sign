@@ -32,7 +32,7 @@ const Lesson = () => {
             <Card
               key={index}
               {...item}
-              url={`lesson/${lessonId}/vocabulary/${item.index}`}
+              url={`lesson/${lessonId}/vocabulary/${index}`}
               title={item.title}
               img={item.img}
               desc={item.desc} // count # words in vocab API
