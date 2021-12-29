@@ -4,7 +4,7 @@ import { useState } from "react";
 import config from "config";
 
 async function loginUser(credentials) {
-  return fetch(`http://${config.api.host}:${config.api.port}/login`, {
+  return fetch(`${config.API_BASE}/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
