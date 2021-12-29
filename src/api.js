@@ -2,7 +2,7 @@ import axios from "axios";
 import config from "config"
 
 export const apiClient = axios.create({
-    baseURL: `http://${config.api.host}:${config.api.port}`,
+    baseURL: config.API_BASE,
     headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
