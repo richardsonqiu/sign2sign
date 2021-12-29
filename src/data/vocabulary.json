@@ -1,9 +1,0 @@
-{
-    "vocabulary": [{
-        "id": 1,
-        "lessonId": 1,
-        "title": "Greetings",
-        "words": ["born", "bear", "banana", "baby", "can"],
-        "quizSentence": ["hello", "world", ",", "good", "morning", "!"]
-    }]
-}

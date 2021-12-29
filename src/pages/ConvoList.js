@@ -2,7 +2,6 @@ import React from "react";
 import { useEffect, useState } from "react";
 import Card from "../components/Card";
 import Loading from "../components/Loading";
-import { conversations as convos } from "../data/conversations.json";
 import { useGlobalContext } from "../context";
 import { getConversations } from "api";
 

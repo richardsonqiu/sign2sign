@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loading from "../components/Loading";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import sampleUser from "../imgs/sample-user.png";
+import sampleUser from "img/sample-user.png";
 import { getConversation } from "api";
 import { useModelPlayer } from "components/hooks";
 import { ModelPlayer } from "components/ModelPlayer";
@@ -76,7 +76,7 @@ const Convo = () => {
                 loadSentenceClips={loadSentenceClips}
               />
             </div>
-            <img src={sampleUser} />
+            <img src={"/img/sample-user.png"} />
           </div>
           <div className="model-prevnext">
             <button className="prev-btn" onClick={prevConvo}>
