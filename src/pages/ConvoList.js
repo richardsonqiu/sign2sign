@@ -25,7 +25,7 @@ const ConvoList = () => {
     fetchVocabs();
   }, []);
 
-  if (!convos) {
+  if (!convosGroup) {
     return <Loading />;
   }
 
