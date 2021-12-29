@@ -2,6 +2,11 @@ import React from "react";
 import { useGlobalContext } from "../context";
 import AchieveCard from "../components/AchieveCard";
 
+import bookIcon from "img/icons/book-icon.png";
+import convoIcon from "img/icons/convo-bubble-icon.png";
+import signIcon from "img/icons/sl-icon.png";
+import fireIcon from "img/icons/fire-icon.png";
+
 const Profile = () => {
   const { user } = useGlobalContext();
 
@@ -45,22 +50,22 @@ const Profile = () => {
         <div className="col-xs-12">
           <div className="achieve-cards-center">
             <AchieveCard
-              iconImg="imgs/icons/book-icon.png"
+              iconImg={bookIcon}
               title="lesson"
               number={userAchievement.noLesson}
             />
             <AchieveCard
-              iconImg="imgs/icons/convo-bubble-icon.png"
+              iconImg={convoIcon}
               title="conversation"
               number={userAchievement.noConversation}
             />
             <AchieveCard
-              iconImg="imgs/icons/sl-icon.png"
+              iconImg={signIcon}
               title="sign"
               number={userAchievement.noVocabulary}
             />
             <AchieveCard
-              iconImg="imgs/icons/fire-icon.png"
+              iconImg={fireIcon}
               title="day"
               number={userAchievement.noStreak}
             />
