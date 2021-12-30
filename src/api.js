@@ -10,7 +10,7 @@ export const apiClient = axios.create({
 })
 
 export function getUser(userId) {
-    return apiClient.get(`/user/${userId}`);
+    return apiClient.get(`/users/${userId}`);
 }
 
 export function getProgress() {
@@ -22,7 +22,7 @@ export function getLessons() {
 }
 
 export function getLesson(lessonId) {
-    return apiClient.get(`/lesson/${lessonId}`);
+    return apiClient.get(`/lessons/${lessonId}`);
 }
 
 export function getVocabs() {
@@ -30,7 +30,7 @@ export function getVocabs() {
 }
 
 export function getVocab(lessonId, vocabIndex) {
-    return apiClient.get(`/lesson/${lessonId}/vocabulary/${vocabIndex}`);
+    return apiClient.get(`/lessons/${lessonId}/vocabularies/${vocabIndex}`);
 }
 
 export function getConversations() {
@@ -38,9 +38,9 @@ export function getConversations() {
 }
 
 export function getConversation(lessonId, convoIndex) {
-    return apiClient.get(`/lesson/${lessonId}/conversation/${convoIndex}`);
+    return apiClient.get(`/lessons/${lessonId}/conversations/${convoIndex}`);
 }
 
 export function getWord(key) {
-    return apiClient.get(`/word/${key}`);
+    return apiClient.get(`/words/${key}`);
 }
