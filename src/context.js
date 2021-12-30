@@ -35,7 +35,7 @@ const AppProvider = ({ children }) => {
 
   useEffect(() => {
     // here to fetch userProgress: id = 1 here
-    fetchUser(1);
+    fetchUser("61b1cb9f81c41c229c1a99d9");
     fetchLessons();
   }, []);
 
