@@ -1,8 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { VRM } from "@pixiv/three-vrm";
+import { Holistic } from "@mediapipe/holistic"
 
 import { loadGLTF, getBoneNames } from 'utils/vrm';
 import { getSentenceClipWithTimes } from 'utils/track';
+import config from 'config';
+import { processResult } from 'utils/signRecognition';
 
 export const useVrm = (vrmSrc) => {
     const [vrm, setVrm] = useState(null);
@@ -140,4 +143,51 @@ export const useModelPlayer = () => {
         reset,
         seekWord
     }
+}
+
+export const useSignRecognition = (onPrediction) => {
+    const holisticRef = useRef(null);
+    const socketRef = useRef(null);
+
+    useEffect(() => {
+        // Set up websocket connection
+        const socket = new WebSocket(config.SIGN_RECOGNITION_ENDPOINT);
+        socketRef.current = socket;
+        
+        // Set up MediaPipe holistic
+        const holistic = new Holistic({locateFile: file => {
+            return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic/${file}`;
+        }});
+        holistic.setOptions({
+            modelComplexity: 1,
+            minDetectionConfidence: 0.5,
+            minTrackingConfidence: 0.5
+        });
+        holistic.onResults(result => {
+            const frame = processResult(result);
+            const data = JSON.stringify(frame);
+
+            if (socket.readyState === WebSocket.OPEN) socket.send(data);
+        });
+        holisticRef.current = holistic;
+
+        return () => {
+            holistic.close();
+            socket.close();
+        };
+    }, []);
+
+    useEffect(() => {
+        const socket = socketRef.current;
+        socket.onmessage = event => onPrediction(JSON.parse(event.data));
+
+    }, [onPrediction]);
+
+    const handleFrame = useCallback(async (videoElement) => {
+        const holistic = holisticRef.current;
+        await holistic.send({image: videoElement});
+
+    }, []);
+
+    return { handleFrame };
 }

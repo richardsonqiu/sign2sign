@@ -6,6 +6,8 @@
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.7.0",
     "@emotion/styled": "^11.6.0",
+    "@mediapipe/camera_utils": "^0.3.1640029074",
+    "@mediapipe/holistic": "^0.5.1635989137",
     "@mui/material": "^5.0.4",
     "@pixiv/three-vrm": "^0.6.7",
     "@react-three/drei": "^7.27.5",
