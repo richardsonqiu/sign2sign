@@ -19,6 +19,7 @@ import Navbar from "./components/Navbar";
 import Loading from "./components/Loading";
 import Login from "./components/Login";
 import useToken from "./components/useToken";
+import Test from "pages/Test";
 
 function App() {
   const { token, setToken } = useToken();
@@ -61,6 +62,9 @@ function App() {
         </Route>
         <Route path="/lesson/:lessonId/conversation/:convoIndex">
           <Convo />
+        </Route>
+        <Route path="/test">
+          <Test />
         </Route>
 
         <Route path="*">
