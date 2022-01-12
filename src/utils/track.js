@@ -1,4 +1,4 @@
-import { getWord } from "api";
+import { getTrack } from "api";
 import { Euler, Quaternion, QuaternionKeyframeTrack, Vector3, AnimationClip } from "three";
 import { armAngles } from "utils/pose"; 
 
@@ -13,16 +13,22 @@ function landmarksToVector3(landmarks, normFactor={x: 16/9, y: 1, z: 16/9}) {
         ));
 }
 
-async function fetchTrack(word) {
-    const res = await getWord(word);
+async function fetchTrack(key) {
+    const res = await getTrack(key.replace(/[^A-Za-z]/g, '_'));
     return res.data.track;
 }
 
 function processAngles(jsonTrack) {
+    const normFactor = {
+        x: jsonTrack.width/jsonTrack.height,
+        y: 1,
+        z: jsonTrack.width/jsonTrack.height
+    }
     const track = {
-        pose: jsonTrack.pose_landmarks.map(landmarks => landmarksToVector3(landmarks)),
-        leftHand: jsonTrack.left_hand_landmarks.map(landmarks => landmarksToVector3(landmarks)),
-        rightHand: jsonTrack.right_hand_landmarks.map(landmarks => landmarksToVector3(landmarks))
+        pose: jsonTrack.pose_landmarks.map(landmarks => landmarksToVector3(landmarks, normFactor)),
+        leftHand: jsonTrack.left_hand_landmarks.map(landmarks => landmarksToVector3(landmarks, normFactor)),
+        rightHand: jsonTrack.right_hand_landmarks.map(landmarks => landmarksToVector3(landmarks, normFactor)),
+        fps: jsonTrack.fps
     };
 
     const trackAngles = {};
@@ -32,7 +38,7 @@ function processAngles(jsonTrack) {
     // const leftTrackAngles = track.pose.map((_, i) => armAngles(track.pose[i], "LEFT", track.leftHand[i]));
     // const rightTrackAngles = track.pose.map((_, i) => armAngles(track.pose[i], "RIGHT", track.leftHand[i]));
 
-    const times = Array.from({length: leftTrackAngles.length}, (_, i) => i / 30);
+    const times = Array.from({length: leftTrackAngles.length}, (_, i) => i / track.fps);
 
     for (let key of Object.keys(leftTrackAngles[0])) {
         

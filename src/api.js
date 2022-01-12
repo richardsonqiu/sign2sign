@@ -44,3 +44,7 @@ export function getConversation(lessonId, convoIndex) {
 export function getWord(key) {
     return apiClient.get(`/words/${key}`);
 }
+
+export function getTrack(key) {
+    return apiClient.get(`/tracks/${key}`);
+}

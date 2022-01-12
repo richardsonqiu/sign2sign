@@ -60,14 +60,14 @@ function calc_finger_vectors(handPoints, finger) {
 function calc_body_n_z(posePoints) {
     return new Vector3().crossVectors(
         new Vector3().subVectors(
-            posePoints[11],
-            posePoints[12]),
-        new Vector3().subVectors(
             posePoints[12],
             new Vector3().addVectors(
                 posePoints[23],
                 posePoints[24]
-            ).divideScalar(2))
+            ).divideScalar(2)),
+        new Vector3().subVectors(
+            posePoints[11],
+            posePoints[12]),
     ).normalize();
 }
 
@@ -78,7 +78,8 @@ function calc_pose_vectors(posePoints, side) {
         : [11, 12, 14, 16, 18, 20]
     ).map(x => posePoints[x]);
 
-    const body_n_z = new Vector3(0, 0, -1);
+    // const body_n_z = new Vector3(0, 0, -1);
+    const body_n_z = calc_body_n_z(posePoints)
 
     const shoulder = new Vector3().subVectors(points[1], points[0]).normalize();
     const upper_arm = new Vector3().subVectors(points[2], points[1]).normalize();

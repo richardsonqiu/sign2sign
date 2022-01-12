@@ -7,7 +7,8 @@ export const CameraInput = ({ handleFrame }) => {
 
     useEffect(() => {
         const camera = new Camera(cameraRef.current, {
-            onFrame: () => handleFrame(cameraRef.current)
+            onFrame: () => handleFrame(cameraRef.current),
+            facingMode: "user"
         });
 
         camera.start()
@@ -16,6 +17,6 @@ export const CameraInput = ({ handleFrame }) => {
     }, []);
     
     return <div>
-        <video ref={cameraRef}></video>
+        <video ref={cameraRef} style={{transform: "rotateY(180deg)"}}></video>
     </div>
 }

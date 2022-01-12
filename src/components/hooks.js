@@ -164,10 +164,13 @@ export const useSignRecognition = (onPrediction) => {
             minTrackingConfidence: 0.5
         });
         holistic.onResults(result => {
+            if (socket.readyState !== WebSocket.OPEN) return;
+            if (!result.poseLandmarks) return;
+
             const frame = processResult(result);
             const data = JSON.stringify(frame);
 
-            if (socket.readyState === WebSocket.OPEN) socket.send(data);
+            socket.send(data);
         });
         holisticRef.current = holistic;
 
@@ -179,7 +182,7 @@ export const useSignRecognition = (onPrediction) => {
 
     useEffect(() => {
         const socket = socketRef.current;
-        socket.onmessage = event => onPrediction(JSON.parse(event.data));
+        socket.onmessage = event => onPrediction(event.data);
 
     }, [onPrediction]);
 
