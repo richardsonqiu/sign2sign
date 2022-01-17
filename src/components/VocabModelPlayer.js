@@ -9,13 +9,12 @@ export const VocabModelPlayer = ({ words, index }) => {
     const {
         playerState,
         handleFrame,
-        loadSentenceClips,
-        setSentences, setIndex,
+        setSentencesWithAnimation, setIndex,
         seek, play, stop, reset
     } = useModelPlayer();
 
     useEffect(() => {
-        setSentences(words.map(w => [w]));
+        setSentencesWithAnimation(words.map(w => [w]));
     }, [words]);
 
     useEffect(() => {
@@ -30,7 +29,6 @@ export const VocabModelPlayer = ({ words, index }) => {
             <ModelPlayer
                 playerState={playerState}
                 handleFrame={handleFrame}
-                loadSentenceClips={loadSentenceClips}
             />
         </div>
         <div className="model-controls">

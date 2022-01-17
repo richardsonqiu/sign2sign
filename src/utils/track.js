@@ -1,4 +1,4 @@
-import { getTrack } from "api";
+import * as api from "api";
 import { Euler, Quaternion, QuaternionKeyframeTrack, Vector3, AnimationClip } from "three";
 import { armAngles } from "utils/pose"; 
 
@@ -14,8 +14,13 @@ function landmarksToVector3(landmarks, normFactor={x: 16/9, y: 1, z: 16/9}) {
 }
 
 async function fetchTrack(key) {
-    const res = await getTrack(key.replace(/[^A-Za-z]/g, '_'));
+    const res = await api.getTrack(key.replace(/[^A-Za-z0-9]/g, '_'));
     return res.data.track;
+}
+
+async function fetchAnimation(key) {
+    const res = await api.getAnimation(key.replace(/[^A-Za-z0-9]/g, '_'));
+    return res.data;
 }
 
 function processAngles(jsonTrack) {
@@ -74,6 +79,17 @@ export const getTrackAngles = function() {
     }
 }()
 
+export const getAnimation = function() {
+    const cache = {};
+    return async key => {
+        if (!cache[key]) {
+            const animationData = await fetchAnimation(key);
+            cache[key] = AnimationClip.parse(animationData);
+        }
+        
+        return cache[key].clone();
+    }
+}()
 
 export async function getSentenceClipWithTimes(sentence, boneNames) {
     const wordTracks = [];
@@ -106,5 +122,60 @@ export async function getSentenceClipWithTimes(sentence, boneNames) {
     return {
         clip: new AnimationClip(sentence.join(' '), -1, keyframeTracks),
         wordTimes: wordTimes
+    }
+}
+
+const wordTransitionTime = 0.25;
+
+export async function getSentenceClipWithAnimation(sentence) {
+    const trackDataList = {};
+
+    const wordTimes = [];
+    let offset = 0;
+    for (const key of sentence) {
+        const wordClip = await getAnimation(key);
+
+        for (const wordTrack of wordClip.tracks) {
+            const name = wordTrack.name;
+
+            if (!trackDataList[name]) {
+                trackDataList[name] = {
+                    constructor: wordTrack.constructor,
+                    name: wordTrack.name,
+                    times: [],
+                    values: []
+                }
+            }
+
+            
+            const trackData = trackDataList[name];
+            wordTrack.shift(offset);
+
+            // let values = null;
+            // if (name.includes('position')) {
+            //     console.log(wordTrack.values)
+            //     values = flipPositionAxis(wordTrack.values);
+            //     console.log(values)
+            // } else {
+            //     values = wordTrack.values;
+            // }
+
+            trackData.times.push(...Array.from(wordTrack.times));
+            trackData.values.push(...Array.from(wordTrack.values));
+        }
+        
+        wordTimes.push(offset);
+        offset += wordClip.duration + wordTransitionTime;
+    }
+    wordTimes.push(offset - wordTransitionTime);
+
+    const tracks = [];
+    for (const {constructor, name, times, values} of Object.values(trackDataList)) {
+        tracks.push(new constructor(name, times, values));
+    }
+
+    return {
+        clip: new AnimationClip(sentence.join(' '), -1, tracks),
+        wordTimes
     }
 }

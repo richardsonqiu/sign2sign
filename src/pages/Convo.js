@@ -15,8 +15,7 @@ const Convo = () => {
   const {
     playerState,
     handleFrame,
-    loadSentenceClips,
-    setSentences, setIndex,
+    setSentencesWithAnimation, setIndex,
     seek, play, stop, reset
   } = useModelPlayer();
 
@@ -26,7 +25,7 @@ const Convo = () => {
       const convo = res.data;
 
       setConvo(convo);
-      setSentences(convo.dialogue.map(d => d.glossSentence));
+      setSentencesWithAnimation(convo.dialogue.map(d => d.glossSentence));
     }
 
     fetchConvo();
@@ -73,7 +72,6 @@ const Convo = () => {
               <ModelPlayer
                 playerState={playerState}
                 handleFrame={handleFrame}
-                loadSentenceClips={loadSentenceClips}
               />
             </div>
             <img src={"/img/sample-user.png"} />

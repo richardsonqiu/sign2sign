@@ -1,10 +1,9 @@
 import { useEffect, useRef } from 'react';
 
 import { AnimationMixer, LoopOnce } from "three";
-import { VRMSchema } from "@pixiv/three-vrm"
 import { useFrame } from '@react-three/fiber'
 
-export const Model = ({ vrm, playerState, handleFrame }) => {
+export const Model = ({ model, playerState, handleFrame }) => {
     const mixer = useRef(null);
     const actions = useRef([]);
 
@@ -20,20 +19,14 @@ export const Model = ({ vrm, playerState, handleFrame }) => {
     });
 
     useEffect(() => {
-        if (!vrm) return;
-        
-        vrm.scene.rotation.y = Math.PI;
-        for (const boneName of Object.values(VRMSchema.HumanoidBoneName)) {
-            const node = vrm.humanoid.getBoneNode(boneName);
-            if (node) {
-                node.rotation.order = "ZYX";
-            }
-        }
+        if (!model) return;
 
-        mixer.current = new AnimationMixer(vrm.scene);
+        model.rotation.y = Math.PI;
+
+        mixer.current = new AnimationMixer(model);
         actions.current = playerState.sentenceClips.map(clip => mixer.current.clipAction(clip));
 
-    }, [vrm]);
+    }, [model]);
 
     useEffect(() => {
         if (!playerState.sentenceClips || !mixer.current) return;
@@ -69,5 +62,5 @@ export const Model = ({ vrm, playerState, handleFrame }) => {
 
     // }, [handleAction]);
 
-    return vrm && <primitive object={vrm.scene} />;
+    return model && <primitive object={model} />;
 }

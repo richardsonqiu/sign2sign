@@ -48,3 +48,7 @@ export function getWord(key) {
 export function getTrack(key) {
     return apiClient.get(`/tracks/${key}`);
 }
+
+export function getAnimation(key) {
+    return apiClient.get(`/animations/${key}`);
+}

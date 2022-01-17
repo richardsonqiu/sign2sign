@@ -5,22 +5,26 @@ import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 
 import { Model } from 'components/Model'
-import { useVrm } from 'components/hooks'
+import { useModel, useVrm } from 'components/hooks'
 
 
-export function ModelPlayer({ playerState, loadSentenceClips, handleFrame, debug }) {
-    const vrm = useVrm("/models/three-vrm-girl.vrm");
+export function ModelPlayer({ playerState, handleFrame, debug }) {
+    const model = useModel("/models/three-vrm-girl.gltf");
+    // const model = useVrm("/models/from_vrm2.vrm");
+    
+    if (!model) return <></>
 
-    useEffect(() => {
-        loadSentenceClips(vrm);
+    // useEffect(() => {
+    //     loadSentenceClips(vrm);
 
-    }, [vrm, playerState.sentences]);
+    // }, [vrm, playerState.sentences]);
 
     return (
         <Canvas
             onCreated={state => {
-                state.gl.toneMapping = THREE.NoToneMapping;
-                state.gl.outputEncoding = THREE.LinearEncoding;
+                state.gl.toneMapping = THREE.LinearToneMapping;
+                state.gl.outputEncoding = THREE.sRGBEncoding;
+                state.gl.physicallyCorrectLights = true
             }}
             camera={{
                 fov: 50,
@@ -28,7 +32,7 @@ export function ModelPlayer({ playerState, loadSentenceClips, handleFrame, debug
             }}
         >
             <Model
-                vrm={vrm}
+                model={model}
                 playerState={playerState}
                 handleFrame={handleFrame}
             />

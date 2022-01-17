@@ -1,24 +1,41 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { VRM } from "@pixiv/three-vrm";
+import { VRM, VRMSchema } from "@pixiv/three-vrm";
 import { Holistic } from "@mediapipe/holistic"
 
 import { loadGLTF, getBoneNames } from 'utils/vrm';
-import { getSentenceClipWithTimes } from 'utils/track';
+import { getSentenceClipWithAnimation, getSentenceClipWithTimes } from 'utils/track';
 import config from 'config';
 import { processResult } from 'utils/signRecognition';
+
+window.schema = VRMSchema
 
 export const useVrm = (vrmSrc) => {
     const [vrm, setVrm] = useState(null);
 
-    useEffect(async () => {
-        if (!vrmSrc) return;
-
-        const gltf = await loadGLTF(vrmSrc); 
-        setVrm(await VRM.from(gltf));
+    useEffect(() => {
+        (async() => {
+            const gltf = await loadGLTF(vrmSrc); 
+            const vrm = await VRM.from(gltf);
+            setVrm(vrm.scene);
+        })();
 
     }, [vrmSrc]);
 
     return vrm;
+}
+
+export const useModel = (gltfSrc) => {
+    const [model, setModel] = useState(null);
+
+    useEffect(() => {
+        (async () => {
+            const gltf = await loadGLTF(gltfSrc);
+            setModel(gltf.scene);
+        })()
+
+    }, []);
+
+    return model;
 }
 
 export const useModelPlayer = () => {
@@ -64,6 +81,23 @@ export const useModelPlayer = () => {
             ...prevPlayerState,
             sentences
         }));
+    }
+
+    const setSentencesWithAnimation = async (sentences) => {
+        const sentenceClips = [];
+        const sentenceTimes = [];
+        for (const sentence of sentences) {
+            const { clip, wordTimes } = await getSentenceClipWithAnimation(sentence);
+            sentenceClips.push(clip);
+            sentenceTimes.push(wordTimes);
+        }
+
+        setPlayerState({
+            ...playerState,
+            sentences,
+            sentenceClips,
+            wordTimes: sentenceTimes
+        })
     }
 
     const setIndex = (index) => {
@@ -136,6 +170,7 @@ export const useModelPlayer = () => {
         handleFrame,
         loadSentenceClips,
         setSentences,
+        setSentencesWithAnimation,
         setIndex,
         play,
         stop,

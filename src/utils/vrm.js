@@ -1,5 +1,6 @@
 import { VRMSchema } from "@pixiv/three-vrm";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import * as THREE from 'three';
 
 export function loadGLTF(vrmSrc) {
     const loader = new GLTFLoader();
