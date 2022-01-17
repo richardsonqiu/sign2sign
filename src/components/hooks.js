@@ -60,19 +60,19 @@ export const useModelPlayer = () => {
     }
 
     const setSentences = (sentences) => {
-        setPlayerState({
-            ...playerState,
+        setPlayerState(prevPlayerState => ({
+            ...prevPlayerState,
             sentences
-        });
+        }));
     }
 
     const setIndex = (index) => {
-        setPlayerState({
-            ...playerState,
+        setPlayerState(prevPlayerState => ({
+            ...prevPlayerState,
             index,
             time: 0,
             isPlaying: false
-        });
+        }));
     }
 
     const loadSentenceClips = (vrm) => {
