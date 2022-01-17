@@ -50,6 +50,12 @@ export const VocabQuizMcq = ({ title, words, onPrevSection, onNextSection }) => 
         setIndex(nextIndex);
     }
 
+    function handleSetAnswer(answer) {
+        let currentAnswers = [...answers];
+        currentAnswers[index] = answer;
+        setAnswers(currentAnswers);
+    }
+
     return (
         <section className="container section">
             <h3 className="section-title">{title}</h3>
@@ -69,19 +75,28 @@ export const VocabQuizMcq = ({ title, words, onPrevSection, onNextSection }) => 
 
                         const classList = ["option-btn"];
                         if (ans == word) {
-                            classList.append(ans == correctAns ? "correct" : "incorrect");
+                            classList.push(ans == correctAns ? "correct" : "incorrect");
                         }
 
-                        // TODO setAnswers()
-                        return <button className={classList.join(" ")} onClick={() => setAnswers()}>{word}</button>
+                        return <button key={word} className={classList.join(" ")} onClick={() => handleSetAnswer(word)}>{word}</button>
                     })}
                 </div>
             </div>
 
             <div className="prev-next-section">
-                <button className="section-btn" onClick={() => index == 0 ? onPrevSection() : prevVocab()}>{1 ? "PREV" : "boop"}</button>
-                {/* TODO Prevent user from going to next question if ans not right and gray out NEXT */}
-                <button className="section-btn" onClick={() => index == words.length - 1 ? onNextSection() : nextVocab()}>NEXT</button>
+                <button
+                    className="section-btn"
+                    onClick={() => index == 0 ? onPrevSection() : prevVocab()}
+                >
+                    {index == 0 ? "PREV SECTION" : "PREV"}
+                </button>
+                <button 
+                    className="section-btn"
+                    disabled={answers[index] != questions[index]?.correctAns}
+                    onClick={() => index == words.length - 1 ? onNextSection() : nextVocab()}
+                >
+                    {index == words.length - 1 ? "NEXT SECTION" : "NEXT"}
+                </button>
                 {/* TODO On correct answer, give correct ans message */}
             </div>
 

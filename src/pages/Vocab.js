@@ -13,7 +13,9 @@ const Vocab = () => {
   const { lessonId, vocabIndex } = useParams(); // to fetch which lesson and which vocab
   const history = useHistory();
   // const [mode, setMode] = useState("practice");
-  const [mode, setMode] = useState("quizMcq");
+  // const [mode, setMode] = useState("quizMcq");
+  const [mode, setMode] = useState("quizSigning");
+
   const [vocab, setVocab] = useState(null);
 
   useEffect(() => {
@@ -49,7 +51,7 @@ const Vocab = () => {
         title={vocab.title}
         words={vocab.words}
         onPrevSection={() => setMode("practice")}
-        onNextSection={() => setMode("quizMcq")}
+        onNextSection={() => setMode("quizSigning")}
       />
     case "quizSigning":
       return <VocabQuizSigning

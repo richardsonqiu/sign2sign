@@ -16,6 +16,7 @@ Variables
     --mainOverlay: rgba(35, 10, 36, 0.4);
     --mainBlack: #222;
     --mainDarkGrey: #777777;
+    --mainMediumGrey: #939799;
     --mainGrey: #ececec;
     --lightGrey: #f3f1f1;
     --darkGrey: #afafaf;
@@ -952,12 +953,29 @@ button {
 
 .vocab-card .options .option-btn {
     display: block;
-    color: var(--mainDarkGrey);
+    color: var(--mainBlack);
     font-weight: bold;
     text-align: center;
     align-items: center;
     background-color: var(--mainWhite);
-    border: 4px solid var(--mainDarkGrey);
+    border: 2px solid var(--mainMediumGrey);
+    padding: 15px 0;
+}
+
+.vocab-card .options .option-btn:hover {
+    box-shadow: var(--lightShadow);
+}
+
+.vocab-card .options .option-btn.correct {
+    color: var(--mainWhite);
+    background-color: var(--primaryColor);
+    border: 2px solid var(--primaryColor);
+}
+
+.vocab-card .options .option-btn.incorrect {
+    color: var(--mainWhite);
+    background-color: var(--mainRed);
+    border: 2px solid var(--mainRed);
 }
 
 .prev-next-section {
@@ -968,10 +986,36 @@ button {
 .section-btn {
     flex: 0 1 0;
     font-weight: bold;
-    color: var(--primaryColor);
-    background-color: var(--mainWhite);
+    color: var(--mainWhite);
+    background-color: var(--primaryColor);
     border-radius: 15px;
     padding: 10px;
     border: 4px solid var(--primaryColor);
     cursor: pointer;
 }
+
+.section-btn:disabled {
+    background-color: var(--mainMediumGrey);
+    border: 4px solid var(--mainMediumGrey);
+}
+
+/* 
+==========================
+Sign Recognition Animation
+==========================
+*/
+@keyframes typing {
+    0%, 40% { transform: translateY(0); color: var(--primaryDarkColor); }
+    100% { transform: translateY(-0.2em); color: var(--primaryColor); }
+}
+
+.typing span {
+    display: inline-block;
+    transition: width 0.2s;
+    animation: typing 0.6s alternate infinite;
+}
+
+.typing span:nth-child(1) { animation-delay: 0s; }
+.typing span:nth-child(2) { animation-delay: 0.2s; }
+.typing span:nth-child(3) { animation-delay: 0.4s; }
+.typing span:nth-child(4) { animation-delay: 0.6s; }

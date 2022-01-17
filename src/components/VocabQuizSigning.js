@@ -1,10 +1,60 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { CameraInput } from "./CameraInput";
+import { useSignRecognition } from "./hooks";
 import { ProgressBar } from "./ProgressBar";
 import { VocabModelPlayer } from "./VocabModelPlayer";
 
+const Typing = () => {
+    return <span className="typing">{Array(4).fill().map((_, i) => <span key={i}>.</span>)}</span>
+}
+
+const hidePrediction = (predictions, i) => {
+    return [
+        ...predictions.slice(0, i),
+        {
+            ...predictions[i],
+            hide: true
+        },
+        ...predictions.slice(i + 1)
+    ]
+}
 
 export const VocabQuizSigning = ({ title, words, onPrevSection, onNextSection }) => {
     const [index, setIndex] = useState(0);
+
+    const [predictions, setPredictions] = useState([]);
+    const [nextPredIndex, setNextPredIndex] = useState(0);
+
+    const onPrediction = (p) => {
+        const targetSequence = [words[index]];
+        const isMatch = p == targetSequence[nextPredIndex];
+
+        if (isMatch) {
+            setNextPredIndex(nextPredIndex + 1);
+        }
+
+        setPredictions(predictions =>
+            [...predictions, {
+                text: p,
+                isMatch: isMatch,
+                hide: false
+            }]
+        );
+
+        if (!isMatch) {
+            const predIndex = predictions.length;
+            setTimeout(() => {
+                setPredictions(predictions => hidePrediction(predictions, predIndex));
+            }, 1000);
+        }
+    };
+
+    useEffect(() => {
+        setPredictions([]);
+        setNextPredIndex(0);
+    }, [index]);
+
+    const { handleFrame } = useSignRecognition(onPrediction);
 
     function prevVocab() {
         const prevIndex = Math.max(index - 1, 0);
@@ -19,15 +69,33 @@ export const VocabQuizSigning = ({ title, words, onPrevSection, onNextSection })
     return (
         <section className="container section">
             <h3 className="section-title">{title}</h3>
-            <ProgressBar max={words.length} val={index+1} />
+            <ProgressBar max={words.length} val={index + 1} />
             <div className="vocab-card">
                 <h3 className="card-instruction">Sign the following words!</h3>
                 <h3 className="card-title">{words[index]}</h3>
 
                 <div className="model">
-                    <VocabModelPlayer words={words} index={index} />
+                    <CameraInput handleFrame={handleFrame} />
                 </div>
 
+                {/* Prediction section */}
+                <div>
+                    <span style={{ fontSize: "4em" }}>
+                        {predictions.map(({ text, isMatch, hide }, i) =>
+                            <span
+                                key={i}
+                                style={{
+                                    color: isMatch ? 'green' : 'red',
+                                    display: hide ? 'none' : 'inline',
+                                    margin: "0 10px",
+                                }}
+                            >
+                                {text}
+                            </span>
+                        )}
+                        <Typing />
+                    </span>
+                </div>
             </div>
 
             <div className="prev-next-section">
