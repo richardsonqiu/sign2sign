@@ -12,9 +12,9 @@ import { VocabQuizSigning } from "components/VocabQuizSigning";
 const Vocab = () => {
   const { lessonId, vocabIndex } = useParams(); // to fetch which lesson and which vocab
   const history = useHistory();
-  // const [mode, setMode] = useState("practice");
+  const [mode, setMode] = useState("practice");
   // const [mode, setMode] = useState("quizMcq");
-  const [mode, setMode] = useState("quizSigning");
+  // const [mode, setMode] = useState("quizSigning");
 
   const [vocab, setVocab] = useState(null);
 
@@ -43,7 +43,7 @@ const Vocab = () => {
       return <VocabPractice
         title={vocab.title}
         words={vocab.words}
-        onPrevSection={history.goBack}
+        onPrevSection={() => history.push(`/lesson/${lessonId}`)}
         onNextSection={() => setMode("quizMcq")}
       />
     case "quizMcq":
@@ -58,7 +58,7 @@ const Vocab = () => {
         title={vocab.title} 
         words={vocab.words} 
         onPrevSection={() => setMode("quizMcq")} 
-        onNextSection={() => setMode("finish")}
+        onNextSection={() => history.push(`/lesson/${lessonId}`)}
       />
     case "finish":
       return <>Yeah!</>

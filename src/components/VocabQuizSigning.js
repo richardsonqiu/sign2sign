@@ -99,8 +99,19 @@ export const VocabQuizSigning = ({ title, words, onPrevSection, onNextSection })
             </div>
 
             <div className="prev-next-section">
-                <button className="section-btn" onClick={() => index == 0 ? onPrevSection() : prevVocab()}>{1 ? "PREV" : "boop"}</button>
-                <button className="section-btn" onClick={() => index == words.length - 1 ? onNextSection() : nextVocab()}>NEXT</button>
+                <button
+                    className="section-btn"
+                    onClick={() => index == 0 ? onPrevSection() : prevVocab()}
+                >
+                    {index == 0 ? "PREV SECTION" : "PREV"}
+                </button>
+                <button 
+                    className="section-btn"
+                    disabled={nextPredIndex < 1}
+                    onClick={() => index == words.length - 1 ? onNextSection() : nextVocab()}
+                >
+                    {index == words.length - 1 ? "NEXT SECTION" : "NEXT"}
+                </button>
             </div>
 
         </section>

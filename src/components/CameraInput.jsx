@@ -13,7 +13,9 @@ export const CameraInput = ({ handleFrame }) => {
 
         camera.start()
 
-        return camera.stop;
+        return () => {
+            camera.stop();
+        }
     }, []);
     
     return <div>

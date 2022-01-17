@@ -97,7 +97,6 @@ export const VocabQuizMcq = ({ title, words, onPrevSection, onNextSection }) => 
                 >
                     {index == words.length - 1 ? "NEXT SECTION" : "NEXT"}
                 </button>
-                {/* TODO On correct answer, give correct ans message */}
             </div>
 
         </section>
