@@ -913,7 +913,7 @@ Quiz
     justify-content: space-between;
 } */
 
-button {
+/* button {
     width: 100%;
     font-size: 16px;
     color: var(--darkGrey);
@@ -925,7 +925,7 @@ button {
     align-items: center;
     border: 5px solid var(--darkGrey);
     cursor: pointer;
-}
+} */
   
 .correct {
     background-color: var(--primaryColor);
@@ -952,14 +952,12 @@ button {
 }
 
 .vocab-card .options .option-btn {
-    display: block;
-    color: var(--mainBlack);
-    font-weight: bold;
-    text-align: center;
-    align-items: center;
     background-color: var(--mainWhite);
     border: 2px solid var(--mainMediumGrey);
-    padding: 15px 0;
+    border-radius: 1rem;
+    color: var(--mainBlack);
+    font-weight: bold;
+    padding: 1rem 0;
 }
 
 .vocab-card .options .option-btn:hover {
@@ -984,19 +982,22 @@ button {
 }
 
 .section-btn {
-    flex: 0 1 0;
     font-weight: bold;
     color: var(--mainWhite);
     background-color: var(--primaryColor);
-    border-radius: 15px;
-    padding: 10px;
-    border: 4px solid var(--primaryColor);
+    border: none;
+    border-radius: 1em;
+    padding: 1rem;
     cursor: pointer;
+    transition: var(--mainTransition);
+}
+
+.section-btn:hover {
+    box-shadow: var(--lightShadow);
 }
 
 .section-btn:disabled {
     background-color: var(--mainMediumGrey);
-    border: 4px solid var(--mainMediumGrey);
 }
 
 /* 

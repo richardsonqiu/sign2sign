@@ -1,5 +1,4 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 import sampleImg from "../imgs/lesson2.png";

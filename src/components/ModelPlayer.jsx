@@ -1,11 +1,9 @@
-import { useEffect } from 'react';
-
 import * as THREE from 'three'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 
 import { Model } from 'components/Model'
-import { useModel, useVrm } from 'components/hooks'
+import { useModel } from 'components/hooks'
 
 
 export function ModelPlayer({ playerState, handleFrame, debug }) {

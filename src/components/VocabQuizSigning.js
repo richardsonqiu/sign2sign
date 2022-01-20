@@ -1,24 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { CameraInput } from "./CameraInput";
 import { useSignRecognition } from "./hooks";
 import { PredictionDisplay } from "./PredictionDisplay";
 import { ProgressBar } from "./ProgressBar";
-import { VocabModelPlayer } from "./VocabModelPlayer";
-
-const Typing = () => {
-    return <span className="typing">{Array(4).fill().map((_, i) => <span key={i}>.</span>)}</span>
-}
-
-const hidePrediction = (predictions, i) => {
-    return [
-        ...predictions.slice(0, i),
-        {
-            ...predictions[i],
-            hide: true
-        },
-        ...predictions.slice(i + 1)
-    ]
-}
 
 export const VocabQuizSigning = ({ title, words, onPrevSection, onNextSection }) => {
     const [index, setIndex] = useState(0);
