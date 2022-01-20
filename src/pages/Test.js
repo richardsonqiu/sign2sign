@@ -2,7 +2,8 @@ import { CameraInput } from "components/CameraInput";
 import { useModelPlayer, useSignRecognition } from "components/hooks";
 import Loading from "components/Loading";
 import { ModelPlayer } from "components/ModelPlayer";
-import { useEffect, useState } from "react"
+import { PredictionDisplay } from "components/PredictionDisplay";
+import { useEffect, useState, useRef } from "react"
 import { FaPause, FaPlay, FaSquare } from "react-icons/fa";
 
 
@@ -26,20 +27,13 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 const ProgressBar = ({ max, val }) => {
     return <div className="progress-bar">
-        <div className="filled" style={{width: `${val*100/max}%`}}></div>
+        <div className="filled" style={{ width: `${val * 100 / max}%` }}></div>
     </div>
-}
-
-const PredictionDisplay = ({ words, sqeuence }) => {
-    return <span className="prediction-display">
-        <span className="static">{words.join(' ')}</span>
-        <span className="typing">{Array(4).fill().map(() => <span>.</span>)}</span>
-    </span>
 }
 
 function parseGLTF(data) {
     const loader = new GLTFLoader();
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         loader.parse(data, null, resolve, reject);
     });
 }
@@ -77,9 +71,9 @@ const ConvertAnimation = () => {
                 const blob = new Blob([JSON.stringify(data)], { type: "text/json" });
                 return <li key={name}>
                     <a
-                        download={`${file.name.substring(0, file.name.length-5)}.json`}
+                        download={`${file.name.substring(0, file.name.length - 5)}.json`}
                         href={URL.createObjectURL(blob)}
-                        
+
                     >
                         {name}
                     </a>
@@ -99,56 +93,103 @@ const ModelTest = () => {
 
     useEffect(() => {
         (async () => {
-            await setSentencesWithAnimation([["test_wave"]]);
+            await setSentencesWithAnimation([["test_wave", "hello", "face"]]);
         })()
     }, []);
 
     if (playerState.sentences.length == 0) return <Loading />
 
-      // Current word from player state
+    // Current word from player state
     const word = playerState.sentences[playerState.index]?.at(0);
     const wordDuration = playerState.wordTimes[playerState.index]?.at(-1);
 
     return <div>
         <div className="model-player">
             <ModelPlayer
-              playerState={playerState}
-              handleFrame={handleFrame}
+                playerState={playerState}
+                handleFrame={handleFrame}
             //   debug={true}
             />
         </div>
         <div className="model-controls">
             <div
-            className="play-pause"
-              onClick={() =>
-                (Math.abs(playerState.time - wordDuration) < 0.01)
-                  ? reset()
-                  : (playerState.isPlaying)
-                    ? stop()
-                    : play()
-              }
+                className="play-pause"
+                onClick={() =>
+                    (Math.abs(playerState.time - wordDuration) < 0.01)
+                        ? reset()
+                        : (playerState.isPlaying)
+                            ? stop()
+                            : play()
+                }
             >
-              {
-                (Math.abs(playerState.time - wordDuration) < 0.01)
-                ? <FaSquare />
-                : (playerState.isPlaying)
-                  ? <FaPause />
-                  : <FaPlay />
-              }
+                {
+                    (Math.abs(playerState.time - wordDuration) < 0.01)
+                        ? <FaSquare />
+                        : (playerState.isPlaying)
+                            ? <FaPause />
+                            : <FaPlay />
+                }
             </div>
             <input
-              type="range"
-              min={0}
-              max={wordDuration}
-              step={0.01}
-              value={playerState.time}
-              onInput={e => seek(parseFloat(e.target.value))}
+                type="range"
+                min={0}
+                max={wordDuration}
+                step={0.01}
+                value={playerState.time}
+                onInput={e => seek(parseFloat(e.target.value))}
             />
-          </div>
+        </div>
+    </div>
+}
+
+
+
+function useInterval(callback, delay) {
+    const savedCallback = useRef();
+
+    // Remember the latest callback.
+    useEffect(() => {
+        savedCallback.current = callback;
+    }, [callback]);
+
+    // Set up the interval.
+    useEffect(() => {
+        function tick() {
+            savedCallback.current();
+        }
+        if (delay !== null) {
+            let id = setInterval(tick, delay);
+            return () => clearInterval(id);
+        }
+    }, [delay]);
+}
+
+const words = ["heh", "boop", "testing", "gyaa", "dotdotdot"]
+const Boop = () => {
+    const [predictions, setPredictions] = useState([]);
+    const [nextPredIndex, setNextPredIndex] = useState(0);
+
+    useInterval(() => {
+        const text = words[Math.floor(Math.random() * words.length)]
+
+        const targetSequence = ["heh", "gyaa", "testing", "dotdotdot", "dotdotdot", "testing", "testing"];
+        const isMatch = text == targetSequence[nextPredIndex];
+
+        if (isMatch) {
+            setNextPredIndex(nextPredIndex + 1)
+        }
+
+        setPredictions([...predictions, { text, isMatch }])
+    }, 2000);
+
+    return <div style={{fontSize: "2em"}}>
+        <PredictionDisplay predictions={predictions} />
     </div>
 }
 
 export default () => <div>
-    <ConvertAnimation />
-    <ModelTest />
+    <Boop />
+    {/* <AniTest /> */}
+    {/* <ConvertAnimation />
+    <ModelTest /> */}
 </div>

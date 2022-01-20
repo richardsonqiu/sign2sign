@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { CameraInput } from "./CameraInput";
 import { useSignRecognition } from "./hooks";
+import { PredictionDisplay } from "./PredictionDisplay";
 import { ProgressBar } from "./ProgressBar";
 import { VocabModelPlayer } from "./VocabModelPlayer";
 
@@ -29,24 +30,9 @@ export const VocabQuizSigning = ({ title, words, onPrevSection, onNextSection })
         const targetSequence = [words[index]];
         const isMatch = p == targetSequence[nextPredIndex];
 
-        if (isMatch) {
-            setNextPredIndex(nextPredIndex + 1);
-        }
+        if (isMatch) setNextPredIndex(nextPredIndex + 1);
 
-        setPredictions(predictions =>
-            [...predictions, {
-                text: p,
-                isMatch: isMatch,
-                hide: false
-            }]
-        );
-
-        if (!isMatch) {
-            const predIndex = predictions.length;
-            setTimeout(() => {
-                setPredictions(predictions => hidePrediction(predictions, predIndex));
-            }, 1000);
-        }
+        setPredictions([...predictions, { text, isMatch }]);
     };
 
     useEffect(() => {
@@ -79,22 +65,8 @@ export const VocabQuizSigning = ({ title, words, onPrevSection, onNextSection })
                 </div>
 
                 {/* Prediction section */}
-                <div>
-                    <span style={{ fontSize: "4em" }}>
-                        {predictions.map(({ text, isMatch, hide }, i) =>
-                            <span
-                                key={i}
-                                style={{
-                                    color: isMatch ? 'green' : 'red',
-                                    display: hide ? 'none' : 'inline',
-                                    margin: "0 10px",
-                                }}
-                            >
-                                {text}
-                            </span>
-                        )}
-                        <Typing />
-                    </span>
+                <div style={{fontSize: "2em"}}>
+                    <PredictionDisplay predictions={predictions} />
                 </div>
             </div>
 
