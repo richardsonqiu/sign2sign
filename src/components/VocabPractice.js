@@ -22,7 +22,7 @@ export const VocabPractice = ({ title, words, onPrevSection, onNextSection }) =>
             <ProgressBar max={words.length} val={index+1} />
             <div className="vocab-card">
                 <h3 className="card-instruction">Follow this sign!</h3>
-                <h3 className="card-title">{words[index]}</h3>
+                <h3 className="card-title">{words[index].gloss}</h3>
 
                 <div className="model">
                     <VocabModelPlayer words={words} index={index} />

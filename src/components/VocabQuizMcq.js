@@ -11,11 +11,11 @@ function shuffleArray(array) {
 }
 
 function generateRandomOptions(words, currentIndex, totalOptions) {
-    let options = [words[currentIndex]];
+    let options = [words[currentIndex].gloss];
 
     while (options.length < totalOptions) {
         const randomIndex = Math.floor(Math.random() * words.length);
-        const word = words[randomIndex];
+        const word = words[randomIndex].gloss;
         if (!options.includes(word)) {
             options.push(word);
         }
@@ -34,7 +34,7 @@ export const VocabQuizMcq = ({ title, words, onPrevSection, onNextSection }) => 
 
     useEffect(() => {
         setQuestions(words.map((word, i) => ({
-            correctAns: word,
+            correctAns: word.gloss,
             options: generateRandomOptions(words, i, 4)
         })));
         setAnswers(words.map(() => null));
@@ -62,7 +62,7 @@ export const VocabQuizMcq = ({ title, words, onPrevSection, onNextSection }) => 
             <ProgressBar max={words.length} val={index + 1} />
             <div className="vocab-card">
                 <h3 className="card-instruction">Select the correct meaning for the following sign!</h3>
-                <h3 className="card-title">{words[index]}</h3>
+                <h3 className="card-title">{words[index].gloss}</h3>
 
                 <div className="model">
                     <VocabModelPlayer words={words} index={index} />

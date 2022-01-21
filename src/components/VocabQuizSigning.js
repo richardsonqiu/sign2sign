@@ -11,7 +11,7 @@ export const VocabQuizSigning = ({ title, words, onPrevSection, onNextSection })
     const [nextPredIndex, setNextPredIndex] = useState(0);
 
     const onPrediction = (p) => {
-        const targetSequence = [words[index]];
+        const targetSequence = [words[index].gloss];
         const isMatch = p == targetSequence[nextPredIndex];
 
         if (isMatch) setNextPredIndex(nextPredIndex + 1);
@@ -42,7 +42,7 @@ export const VocabQuizSigning = ({ title, words, onPrevSection, onNextSection })
             <ProgressBar max={words.length} val={index + 1} />
             <div className="vocab-card">
                 <h3 className="card-instruction">Sign the following words!</h3>
-                <h3 className="card-title">{words[index]}</h3>
+                <h3 className="card-title">{words[index].gloss}</h3>
 
                 <div className="model">
                     <CameraInput handleFrame={handleFrame} />

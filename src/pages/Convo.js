@@ -58,7 +58,7 @@ const Convo = () => {
 
   const text = convo.dialogue[playerState.index].sentence;
   
-  const gloss = playerState.sentences[playerState.index];
+  const gloss = playerState.sentences[playerState.index].map(w => w.gloss);
   const wordTimes = playerState.wordTimes[playerState.index];
 
   return (

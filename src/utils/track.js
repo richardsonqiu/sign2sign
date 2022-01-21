@@ -132,8 +132,8 @@ export async function getSentenceClipWithAnimation(sentence) {
 
     const wordTimes = [];
     let offset = 0;
-    for (const key of sentence) {
-        const wordClip = await getAnimation(key);
+    for (const word of sentence) {
+        const wordClip = await getAnimation(word.gloss);
 
         for (const wordTrack of wordClip.tracks) {
             const name = wordTrack.name;
