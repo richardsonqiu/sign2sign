@@ -46,9 +46,13 @@ export function getWord(key) {
 }
 
 export function getTrack(key) {
-    return apiClient.get(`/tracks/${key}`);
+    return apiClient.get(`/tracks/${key.replace(/[^A-Za-z0-9]/g, '_')}`);
 }
 
 export function getAnimation(key) {
-    return apiClient.get(`/animations/${key}`);
+    return apiClient.get(`/animations/${key.replace(/[^A-Za-z0-9]/g, '_')}`);
+}
+
+export function getEmotion(key) {
+    return apiClient.get(`/emotions/${key.replace(/[^A-Za-z0-9]/g, '_')}`);
 }

@@ -18,11 +18,6 @@ async function fetchTrack(key) {
     return res.data.track;
 }
 
-async function fetchAnimation(key) {
-    const res = await api.getAnimation(key.replace(/[^A-Za-z0-9]/g, '_'));
-    return res.data;
-}
-
 function processAngles(jsonTrack) {
     const normFactor = {
         x: jsonTrack.width/jsonTrack.height,
@@ -71,8 +66,9 @@ export const getTrackAngles = function() {
     const cache = {};
     return async word => {
         if (!cache[word]) {
-            const track = await fetchTrack(word);
-            cache[word] = processAngles(track);
+            const result = await api.getTrack(key);
+            const trackData = result.data;
+            cache[word] = processAngles(trackData);
         }
         
         return cache[word];
@@ -83,8 +79,22 @@ export const getAnimation = function() {
     const cache = {};
     return async key => {
         if (!cache[key]) {
-            const animationData = await fetchAnimation(key);
+            const result = await api.getAnimation(key);
+            const animationData = result.data;
             cache[key] = AnimationClip.parse(animationData);
+        }
+        
+        return cache[key].clone();
+    }
+}()
+
+export const getEmotion = function() {
+    const cache = {};
+    return async key => {
+        if (!cache[key]) {
+            const result = await api.getEmotion(key);
+            const emotionData = result.data;
+            cache[key] = AnimationClip.parse(emotionData);
         }
         
         return cache[key].clone();
@@ -134,8 +144,14 @@ export async function getSentenceClipWithAnimation(sentence) {
     let offset = 0;
     for (const word of sentence) {
         const wordClip = await getAnimation(word.gloss);
+        const emotClip = await getEmotion(word.emotion ?? 'neutral');
+        
+        // Make emotion clip duration the same as word clip duration
+        const emotDurationAdj = wordClip.duration / emotClip.duration;
+        emotClip.tracks.forEach(t => t.scale(emotDurationAdj))
 
-        for (const wordTrack of wordClip.tracks) {
+        // Iterate each track and append to a combined track data list
+        for (const wordTrack of [...wordClip.tracks, ...emotClip.tracks]) {
             const name = wordTrack.name;
 
             if (!trackDataList[name]) {
@@ -146,19 +162,9 @@ export async function getSentenceClipWithAnimation(sentence) {
                     values: []
                 }
             }
-
             
             const trackData = trackDataList[name];
             wordTrack.shift(offset);
-
-            // let values = null;
-            // if (name.includes('position')) {
-            //     console.log(wordTrack.values)
-            //     values = flipPositionAxis(wordTrack.values);
-            //     console.log(values)
-            // } else {
-            //     values = wordTrack.values;
-            // }
 
             trackData.times.push(...Array.from(wordTrack.times));
             trackData.values.push(...Array.from(wordTrack.values));
