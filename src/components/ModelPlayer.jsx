@@ -17,7 +17,7 @@ export function ModelPlayer({ playerState, handleFrame, debug }) {
 
     // }, [vrm, playerState.sentences]);
 
-    return (
+    return <div className="model-player">
         <Canvas
             onCreated={state => {
                 state.gl.toneMapping = THREE.LinearToneMapping;
@@ -26,7 +26,7 @@ export function ModelPlayer({ playerState, handleFrame, debug }) {
             }}
             camera={{
                 fov: 50,
-                position: [0, 1, 1.4]
+                position: [0, 1.25, 1.1]
             }}
         >
             <Model
@@ -39,12 +39,12 @@ export function ModelPlayer({ playerState, handleFrame, debug }) {
                 position={[1, 1, 1]}
             />
             <OrbitControls
-                target={[0, 1, 0]}
+                target={[0, 1.25, 0]}
                 enablePan={false}
             />
             { debug && <axesHelper args={[5]} /> }
             { debug && <gridHelper args={[10, 10]} /> }
-            <color attach="background" args={["black"]} />
+            <color attach="background" args={[""]} />
         </Canvas>
-    )
+    </div>
 }

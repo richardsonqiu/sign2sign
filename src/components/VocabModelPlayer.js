@@ -25,12 +25,10 @@ export const VocabModelPlayer = ({ words, index }) => {
     const wordDuration = playerState.wordTimes[playerState.index]?.at(-1);
 
     return <div className="model-container">
-        <div className="model-player">
-            <ModelPlayer
-                playerState={playerState}
-                handleFrame={handleFrame}
-            />
-        </div>
+        <ModelPlayer
+            playerState={playerState}
+            handleFrame={handleFrame}
+        />
         <div className="model-controls">
                 <div
                     className="play-pause"

@@ -1,4 +1,5 @@
 import { CameraInput } from "components/CameraInput";
+import { ConvoPractice } from "components/ConvoPractice";
 import { useModelPlayer, useSignRecognition } from "components/hooks";
 import Loading from "components/Loading";
 import { ModelPlayer } from "components/ModelPlayer";
@@ -187,9 +188,21 @@ const Boop = () => {
     </div>
 }
 
+const dialogues = [
+    {
+        person: "A",
+        sentence: "sakit perut",
+        glossSentence: [
+            { gloss: "HELLO" },
+            { gloss: "I/ME" },
+            { gloss: "FINE" },
+            { gloss: "YOU" },
+            { gloss: "DO", emotion: "question" }
+        ]
+    }
+]
+
 export default () => <div>
-    <Boop />
-    {/* <AniTest /> */}
-    {/* <ConvertAnimation />
-    <ModelTest /> */}
+    <ConvertAnimation />
+    {/* <ConvoPractice dialogues={dialogues} /> */}
 </div>

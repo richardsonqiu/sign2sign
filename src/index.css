@@ -20,6 +20,7 @@ Variables
     --mainGrey: #ececec;
     --lightGrey: #f3f1f1;
     --darkGrey: #afafaf;
+    --lightGreen: #e5f4e7;
     --mainRed: #bd0303;
     --mainTransition: all 0.3s ease;
     /* --mainSpacing: 0.3rem; */
@@ -674,6 +675,9 @@ Vocab
 .model-player {
     height: 450px;
     width: 450px;
+    border-radius: 1rem;
+    box-shadow: var(--lightShadow);
+    overflow: hidden;
 }
 
 @media (max-width: 768px) {
@@ -744,103 +748,63 @@ Convo
 */
 
 .convo-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem 0;
+    padding: 2rem 5rem;
     background: var(--mainWhite);
-    margin: 1rem;
     box-shadow: var(--lightShadow);
+    border-radius: var(--lgBorderRadius);
     transition: var(--mainTransition);
-    display: flex;
-    flex-direction: column;
-    /* display: grid; */
-    /* grid-template-rows: auto 1fr; */
-    border-radius: var(--lgBorderRadius);
-    justify-content: center;
-    padding-bottom: 1rem;
+    gap: 1.5rem
 }
 
-.convo-container {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem 3rem;
+.convo-card .card-instruction {
+    font-size: 1.5em;
+    align-self: flex-start;
 }
 
-.model-camera {
+.word-controls {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 2rem;
+    padding: 2rem;
+    border-radius: 1rem;
+    border: 2px solid var(--mainGrey);
+    font-size: 1em;
+}
+
+.word-controls .sentence-label {
     margin-bottom: 1rem;
-    margin-top: 2rem;
-    /* display: grid; */
-    /* grid-template-columns: auto 1fr;
-    gap: 1rem; */
+}
+
+.word-controls .gloss-list-input {
     display: flex;
-    flex-direction: row;
-    /* flex-flow: row wrap; */
-    align-items: center;
-    border-radius: var(--lgBorderRadius);
-    justify-content: center;
-    column-gap: 1rem;
-    row-gap: 1rem;
-    /* padding: 1.5rem; */
+    gap: 1rem
 }
 
-.model-camera img {
-    height: 15rem;
-    width: 20rem;
-    border-radius: var(--lgBorderRadius);
-    border: 1px solid var(--primaryColor);
-    /* display: block; */
-}
-
-@media screen and (max-width: 650px) {
-    .model-camera {
-        grid-template-rows: auto;
-        grid-template-columns: none;
-    }
-}
-
-.sentence-gloss {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    /* background-color: var(--lightGrey); */
-    background-color: var(--mainGrey);
-    border-radius: var(--smBorderRadius);
-    padding-top: 1.5rem;
-    z-index: 1;
-}
-
-.gloss-section {
-    /* display: grid; */
-    /* grid-template-columns: auto 1fr; */
-    display: flex;
-    flex-flow: row wrap;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    width: calc(50vw);
-    text-align: center;
-    /* background-color: var(--mainGrey); */
-    background-color: var(--lightGrey);
-    border-radius: var(--smBorderRadius);
-    padding-bottom: 1rem;
-    padding-top: 0.5rem;
-    margin-top: 0.5rem;
-    z-index: 2;
-}
-
-
-/* @media screen and (min-width: 650px) {
-    .gloss-section {
-        width: calc(50vw)
-    }
-} */
-
-.gloss {
-    background: var(--mainWhite);
-    margin: 0.5rem;
+.word-controls .gloss-list-input button {
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background: none;
     box-shadow: var(--lightShadow);
-    border-radius: var(--smBorderRadius);
-    padding: 0.5rem;
-    font-weight: 400;
+    font-family: inherit;
+    font-size: 1em;
+    transition: all 0.2s;
 }
 
+.word-controls .gloss-list-input button:hover {
+    background-color: var(--lightGreen);
+}
+
+.word-controls .gloss-list-input button.gloss-active {
+    background-color: var(--primaryColor);
+    color: var(--mainWhite);
+}
 
 /* 
 ====== 

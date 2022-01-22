@@ -1,23 +1,18 @@
-import React from "react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
+
 import Loading from "../components/Loading";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import sampleUser from "img/sample-user.png";
+
 import { getConversation } from "api";
-import { useModelPlayer } from "components/hooks";
-import { ModelPlayer } from "components/ModelPlayer";
+import { ConvoPractice } from "components/ConvoPractice";
 
 const Convo = () => {
   const { lessonId, convoIndex } = useParams(); // to fetch which lesson and which vocab
-  const [convo, setConvo] = useState(null);
+  const history = useHistory();
+  const [mode, setMode] = useState("practice");
+  // const [mode, setMode] = useState("quiz");
 
-  const {
-    playerState,
-    handleFrame,
-    setSentencesWithAnimation, setIndex,
-    seek, play, stop, reset
-  } = useModelPlayer();
+  const [convo, setConvo] = useState(null);
 
   useEffect(() => {
     const fetchConvo = async () => {
@@ -25,93 +20,29 @@ const Convo = () => {
       const convo = res.data;
 
       setConvo(convo);
-      setSentencesWithAnimation(convo.dialogue.map(d => d.glossSentence));
-    }
+      console.log(convo)
+    };
 
     fetchConvo();
   }, []);
 
-  // Previous and Next Convo Functions
-  function checkIndex(index) {
-    if (index > playerState.sentences.length - 1) {
-      return 0;
-    }
-    if (index < 0) {
-      return playerState.sentences.length - 1;
-    }
-    return index;
-  }
-
-  function prevConvo() {
-    const newIndex = checkIndex(playerState.index - 1);
-    setIndex(newIndex);
-  }
-
-  function nextConvo() {
-    const newIndex = checkIndex(playerState.index + 1);
-    setIndex(newIndex);
-  }
-
-  if (!convo || !playerState.sentences.length) {
+  if (!convo) {
     return <Loading />;
   }
 
-  const text = convo.dialogue[playerState.index].sentence;
-  
-  const gloss = playerState.sentences[playerState.index].map(w => w.gloss);
-  const wordTimes = playerState.wordTimes[playerState.index];
-
-  return (
-    <section className="container section">
-      <h3 className="section-title">{convo.title}</h3>
-      <div className="convo-card">
-        {/* <h3 className="card-title">{lessonVocabs[index]}</h3> */}
-        <div className="convo-container">
-          <div className="model-camera">
-            <div className="model-player">
-              <ModelPlayer
-                playerState={playerState}
-                handleFrame={handleFrame}
-              />
-            </div>
-            <img src={"/img/sample-user.png"} />
-          </div>
-          <div className="model-prevnext">
-            <button className="prev-btn" onClick={prevConvo}>
-              <FaChevronLeft />
-            </button>
-            <div className="sentence-gloss">
-              {text.map((item, id) => {
-                return (
-                  <>
-                    <span key={id}>{item}</span>
-                  </>
-                );
-              })}
-
-              <div className="gloss-section">
-                {gloss.map((item, index) => {
-                  return (
-                    <span
-                      className="gloss"
-                      key={index}
-                      onClick={() => seek(wordTimes[index])}
-                    >
-                      {item}
-                    </span>
-                  );
-                })}
-              </div>
-            </div>
-
-            <button className="next-btn" onClick={nextConvo}>
-              <FaChevronRight />
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  switch (mode) {
+    case "practice":
+      return <ConvoPractice
+        title={convo.title}
+        dialogues={convo.dialogue}
+        onPrevSection={() => history.push(`/lesson/${lessonId}`)}
+        onNextSection={() => setMode("quiz")}
+      />
+    case "quiz":
+      retu
+    default:
+      return <>Oof</>
+  }
 };
 
 export default Convo;
