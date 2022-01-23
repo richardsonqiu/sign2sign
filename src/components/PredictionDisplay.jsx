@@ -19,11 +19,11 @@ const Word = ({ text, isMatch }) => {
     </span>
 }
 
-export const PredictionDisplay = ({ predictions }) => {
+export const PredictionDisplay = ({ predictions, isTyping }) => {
     return <div className="prediction-display">
         {predictions.map(({ text, isMatch }, i) =>
             <Word key={i} text={text} isMatch={isMatch} />
         )}
-        <Typing />
+        { isTyping && <Typing /> }
     </div>
 }

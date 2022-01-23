@@ -95,12 +95,21 @@ const ReadSign = ({ dialogue, question, answer, handleSetAnswer, modelPlayer }) 
     </div>
 }
 
-const DoSign = ({ dialogue, handleSetAnswer }) => {
+const DoSign = ({ dialogue, answer, handleSetAnswer }) => {
     const [predictions, setPredictions] = useState([]);
     const [nextPredIndex, setNextPredIndex] = useState(0);
 
     const targetAnswer = dialogue.glossSentence.map(w => w.gloss);
+    useEffect(() => {
+        setPredictions(answer.map(p => ({ text: p, isMatch: true })));
+        setNextPredIndex(answer.length);
+    }, []);
+
     const onPrediction = (p) => {
+        if (nextPredIndex == targetAnswer.length) {
+            return;
+        }
+
         const isMatch = p == targetAnswer[nextPredIndex];
 
         if (isMatch) {
@@ -125,7 +134,7 @@ const DoSign = ({ dialogue, handleSetAnswer }) => {
         </div>
 
         <div style={{ fontSize: "2em" }}>
-            <PredictionDisplay predictions={predictions} />
+            <PredictionDisplay predictions={predictions} isTyping={nextPredIndex < targetAnswer.length} />
         </div>
     </div>
 }
@@ -189,7 +198,11 @@ export const ConvoQuiz = ({ title, dialogue, onPrevSection, onNextSection }) => 
                     handleSetAnswer={handleSetAnswer}
                     modelPlayer={modelPlayer}
                 /> :
-                <DoSign dialogue={dialogue[index]} handleSetAnswer={handleSetAnswer} />
+                <DoSign
+                    dialogue={dialogue[index]}
+                    answer={answers[index]}
+                    handleSetAnswer={handleSetAnswer}
+                />
             }
 
             <div className="prev-next-section">

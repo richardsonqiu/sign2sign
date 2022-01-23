@@ -183,26 +183,231 @@ const Boop = () => {
         setPredictions([...predictions, { text, isMatch }])
     }, 2000);
 
-    return <div style={{fontSize: "2em"}}>
+    return <div style={{ fontSize: "2em" }}>
         <PredictionDisplay predictions={predictions} />
     </div>
 }
 
-const dialogues = [
-    {
-        person: "A",
-        sentence: "sakit perut",
-        glossSentence: [
-            { gloss: "HELLO" },
-            { gloss: "I/ME" },
-            { gloss: "FINE" },
-            { gloss: "YOU" },
-            { gloss: "DO", emotion: "question" }
-        ]
-    }
-]
+const { dialogue: dialogues } = {
+    "title": "Meeting a Friend",
+    "dialogue": [
+        {
+            "person": "A",
+            "sentence": [
+                "Hello!"
+            ],
+            "glossSentence": [
+                {
+                    "gloss": "HELLO"
+                }
+            ],
+            "emotion": [
+                "happy"
+            ]
+        },
+        {
+            "person": "B",
+            "sentence": [
+                "Hello!"
+            ],
+            "glossSentence": [
+                {
+                    "gloss": "HELLO"
+                }
+            ],
+            "emotion": [
+                "happy"
+            ]
+        },
+        {
+            "person": "A",
+            "sentence": [
+                "How are you?"
+            ],
+            "glossSentence": [
+                {
+                    "gloss": "HOW"
+                },
+                {
+                    "gloss": "YOU",
+                    "emotion": "question"
+                }
+            ],
+            "emotion": [
+                "happy",
+                "question"
+            ]
+        },
+        {
+            "person": "B",
+            "sentence": [
+                "I'm fine, how about you?"
+            ],
+            "glossSentence": [
+                {
+                    "gloss": "FINE"
+                },
+                {
+                    "gloss": "HOW"
+                },
+                {
+                    "gloss": "YOU",
+                    "emotion": "question"
+                }
+            ],
+            "emotion": [
+                "happy",
+                "happy",
+                "question"
+            ]
+        },
+        {
+            "person": "A",
+            "sentence": [
+                "I'm fine too"
+            ],
+            "glossSentence": [
+                {
+                    "gloss": "SAME"
+                }
+            ],
+            "emotion": [
+                "happy"
+            ]
+        },
+        {
+            "person": "B",
+            "sentence": [
+                "What are you doing here?"
+            ],
+            "glossSentence": [
+                {
+                    "gloss": "YOU"
+                },
+                {
+                    "gloss": "DO",
+                    "emotion": "question"
+                }
+            ],
+            "emotion": [
+                "happy",
+                "question"
+            ]
+        },
+        {
+            "person": "A",
+            "sentence": [
+                "I'm going to have lunch."
+            ],
+            "glossSentence": [
+                {
+                    "gloss": "GO"
+                },
+                {
+                    "gloss": "LUNCH"
+                }
+            ],
+            "emotion": [
+                "happy",
+                "happy"
+            ]
+        },
+        {
+            "person": "B",
+            "sentence": [
+                "It's been a while, how about we have lunch together?"
+            ],
+            "glossSentence": [
+                {
+                    "gloss": "SINCE"
+                },
+                {
+                    "gloss": "LONG"
+                },
+                {
+                    "gloss": "TIME"
+                },
+                {
+                    "gloss": "LUNCH"
+                },
+                {
+                    "gloss": "TOGETHER",
+                    "emotion": "question"
+                }
+            ],
+            "emotion": [
+                "happy",
+                "happy",
+                "happy",
+                "happy",
+                "question"
+            ]
+        },
+        {
+            "person": "A",
+            "sentence": [
+                "That sounds great! Let's go"
+            ],
+            "glossSentence": [
+                {
+                    "gloss": "PERFECT"
+                },
+                {
+                    "gloss": "LEAVE"
+                }
+            ],
+            "emotion": [
+                "happy",
+                "happy"
+            ]
+        }
+    ]
+}
 
-export default () => <div>
-    <ConvertAnimation />
-    {/* <ConvoPractice dialogues={dialogues} /> */}
-</div>
+const Switch = () => {
+    const { playerState, handleFrame: handleModelFrame, setSentencesWithAnimation } = useModelPlayer();
+    const { handleFrame: handleInputFrame } = useSignRecognition(p => console.log(p));
+
+    const [activePerson, setActivePerson] = useState("A");
+
+    return <div>
+        <button style={{ padding: "1rem" }} onClick={() => setActivePerson("A")} >A</button>
+        <button style={{ padding: "1rem" }} onClick={() => setActivePerson("B")} >B</button>
+        <div style={{ display: activePerson == "A" ? "block" : "none" }}>
+            <ModelPlayer playerState={playerState} handleFrame={handleModelFrame} />
+        </div>
+        <div style={{ display: activePerson == "B" ? "block" : "none" }}>
+            <CameraInput handleFrame={handleInputFrame} />
+        </div>
+    </div>
+}
+
+const Bubble = ({ dialogues, lastDialogueIndex }) => {
+    return <div className="dialogue-container">
+        {dialogues.map((d, i) => {
+            const classList = [
+                "bubble",
+                i <= lastDialogueIndex ? "show" : "hide",
+                d.person + "-speaking"
+            ];
+            
+            return <div
+                key={i}
+                className={classList.join(" ")}
+            > 
+                {d.sentence}
+            </div>
+        })}
+    </div>
+}
+
+export default () => {
+    const [lastDialogueIndex, setLastDialogueIndex] = useState(0);
+    return <div>
+        {/* <input type={"number"} min={0} max={dialogues.length-1} val={lastDialogueIndex} onInput={e => setLastDialogueIndex(parseInt(e.target.value))} />
+        <Bubble dialogues={dialogues} lastDialogueIndex={lastDialogueIndex} /> */}
+        {/* <Switch /> */}
+        <ConvertAnimation />
+        {/* <ConvoPractice dialogues={dialogues} /> */}
+    </div>
+}

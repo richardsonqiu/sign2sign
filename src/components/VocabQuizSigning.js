@@ -10,12 +10,14 @@ export const VocabQuizSigning = ({ title, words, onPrevSection, onNextSection })
     const [predictions, setPredictions] = useState([]);
     const [nextPredIndex, setNextPredIndex] = useState(0);
 
+    const targetSequence = [words[index].gloss];
     const onPrediction = (p) => {
-        const targetSequence = [words[index].gloss];
-        const isMatch = p == targetSequence[nextPredIndex];
+        if (nextPredIndex == targetSequence.length) {
+            return;
+        }
 
+        const isMatch = p == targetSequence[nextPredIndex];
         if (isMatch) setNextPredIndex(nextPredIndex + 1);
-        console.log(p)
         setPredictions([...predictions, { text: p, isMatch }]);
     };
 
@@ -50,7 +52,7 @@ export const VocabQuizSigning = ({ title, words, onPrevSection, onNextSection })
 
                 {/* Prediction section */}
                 <div style={{fontSize: "2em"}}>
-                    <PredictionDisplay predictions={predictions} />
+                    <PredictionDisplay predictions={predictions} isTyping={nextPredIndex < targetSequence.length} />
                 </div>
             </div>
 
