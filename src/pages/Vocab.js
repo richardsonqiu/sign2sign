@@ -29,11 +29,6 @@ const Vocab = () => {
     fetchVocab();
   }, []);
 
-  // Change mode to "practice" or "quizMcq" or "quizSigning"
-  // useEffect(() => {
-  //   setMode();
-  // }, [])
-
   if (!vocab) {
     return <Loading />;
   }

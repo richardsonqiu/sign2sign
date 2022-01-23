@@ -15,8 +15,8 @@ export const VocabQuizSigning = ({ title, words, onPrevSection, onNextSection })
         const isMatch = p == targetSequence[nextPredIndex];
 
         if (isMatch) setNextPredIndex(nextPredIndex + 1);
-
-        setPredictions([...predictions, { text, isMatch }]);
+        console.log(p)
+        setPredictions([...predictions, { text: p, isMatch }]);
     };
 
     useEffect(() => {
