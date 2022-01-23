@@ -38,6 +38,24 @@ function getCorrectAns(dialogue) {
     return gloss;
 }
 
+function generateRandomOptions(dialogue, d, extraOptions) {
+    const allGloss = getAllGloss(dialogue);
+    const correctAns = getCorrectAns(d);
+    const options = [...correctAns];
+
+    while (options.length < correctAns.length + extraOptions) {
+        const randomIndex = Math.floor(Math.random() * allGloss.length);
+        const word = allGloss[randomIndex];
+        if (!options.includes(word)) {
+            options.push(word);
+        }
+    }
+
+    shuffleArray(options)
+
+    return options;
+}
+
 const ReadSign = ({ dialogue, question, answer, handleSetAnswer, modelPlayer }) => {
     const {
         playerState, handleFrame,
@@ -156,9 +174,9 @@ export const ConvoQuiz = ({ title, dialogue, onPrevSection, onNextSection }) => 
     }, [index]);
 
     useEffect(() => {
-        setQuestions(dialogue.map(d => ({
+        setQuestions(dialogue.map( (d, _, dialogue) => ({
             correctAns: getCorrectAns(d),
-            options: getAllGloss(dialogue)
+            options: generateRandomOptions(dialogue, d, 3)
         })));
         setAnswers(dialogue.map(() => []));
     }, []);
