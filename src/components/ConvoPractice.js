@@ -58,7 +58,7 @@ export const ConvoPractice = ({ title, dialogues, onPrevSection, onNextSection }
         <section className="container section">
             <h3 className="section-title">{title}</h3>
             <ProgressBar max={dialogues.length} val={convoIndex + 1} />
-            <div className="convo-card">
+            <div className="container-card convo-practice">
                 <h3 className="card-instruction">Practice this conversation!</h3>
                 <div className="model-container">
                     <ModelPlayer playerState={playerState} handleFrame={handleFrame} />

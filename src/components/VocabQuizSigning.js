@@ -42,16 +42,16 @@ export const VocabQuizSigning = ({ title, words, onPrevSection, onNextSection })
         <section className="container section">
             <h3 className="section-title">{title}</h3>
             <ProgressBar max={words.length} val={index + 1} />
-            <div className="vocab-card">
+            <div className="container-card vocab-quiz-signing">
                 <h3 className="card-instruction">Sign the following words!</h3>
-                <h3 className="card-title">{words[index].gloss}</h3>
 
-                <div className="model">
+                <div className="model-container">
+                    <h3 className="card-title">{words[index].gloss}</h3>
                     <CameraInput handleFrame={handleFrame} />
                 </div>
 
                 {/* Prediction section */}
-                <div style={{fontSize: "2em"}}>
+                <div style={{fontSize: "1.5em"}}>
                     <PredictionDisplay predictions={predictions} isTyping={nextPredIndex < targetSequence.length} />
                 </div>
             </div>

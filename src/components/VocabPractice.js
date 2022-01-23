@@ -20,11 +20,11 @@ export const VocabPractice = ({ title, words, onPrevSection, onNextSection }) =>
         <section className="container section">
             <h3 className="section-title">{title}</h3>
             <ProgressBar max={words.length} val={index+1} />
-            <div className="vocab-card">
+            <div className="container-card vocab-practice">
                 <h3 className="card-instruction">Follow this sign!</h3>
-                <h3 className="card-title">{words[index].gloss}</h3>
 
-                <div className="model">
+                <div className="model-container">
+                    <h3 className="card-title">{words[index].gloss}</h3>
                     <VocabModelPlayer words={words} index={index} />
                 </div>
 

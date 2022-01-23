@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { CameraInput } from "./CameraInput";
+import { ChatDialogue } from "./ChatDialogue";
 import { useModelPlayer, useSignRecognition } from "./hooks";
 import Loading from "./Loading";
 import { ModelPlayer } from "./ModelPlayer";
@@ -72,7 +73,7 @@ const ReadSign = ({ dialogue, question, answer, handleSetAnswer, modelPlayer }) 
         handleSetAnswer([]);
     }
 
-    return <div className="convo-card">
+    return <div className="container-card convo-quiz">
         <h3 className="card-instruction">Form the sentence signed below!</h3>
 
         <div className="model-container">
@@ -80,28 +81,21 @@ const ReadSign = ({ dialogue, question, answer, handleSetAnswer, modelPlayer }) 
             <PlaybackControls playerState={playerState} play={play} stop={stop} reset={reset} seek={seek} />
         </div>
 
-        <div className="dialogue">
+        {/* <div className="dialogue">
             <p className="person-sentence">{dialogue.person}: {dialogue.sentence[0]}</p>
             <div>
                 {dialogue.person == 'A' ? "" : (<p>Gloss: {correctAns.join(" ")}</p>)}
             </div>
             <p>Gloss reference: {correctAns.join(" ")}</p>
-        </div>
+        </div> */}
 
-        <div className="player-answer">
+        <div className="answer-labels">
             <p>Your answer:</p>
-            <div className="player-answer-grid">
-                {
-                    answer.map((ans, i) => {
-                        if (ans) {
-                            return <button key={i} className="player-answer-btn">{ans}</button>
-                        }
-                    })
-                }
-            </div>
-
-            <button className="answer-reset-btn" onClick={resetAnswer}>RESET ANSWER</button>
+            {answer.map((ans, i) =>
+                <div key={i} className="answer-label">{ans}</div>
+            )}
         </div>
+        <button className="answer-reset-btn" onClick={resetAnswer}>RESET ANSWER</button>
 
         <div className="options">
             {
@@ -139,19 +133,20 @@ const DoSign = ({ dialogue, answer, handleSetAnswer }) => {
 
     const { handleFrame } = useSignRecognition(onPrediction);
 
-    return <div className="convo-card">
-        <div className="card-instruction">Sign the following sentence!</div>
+    return <div className="container-card convo-quiz">
+        <h3 className="card-instruction">Sign the following sentence!</h3>
 
         <CameraInput handleFrame={handleFrame} />
 
-        <div className="dialogue">
+        {/* <div className="dialogue">
             <p className="person-sentence">{dialogue.person}: {dialogue.sentence[0]}</p>
             <div>
                 <p>Gloss: {targetAnswer.join(" ")}</p>
             </div>
-        </div>
+        </div> */}
 
-        <div style={{ fontSize: "2em" }}>
+        <div style={{ fontSize: "1.5em" }}>
+            {/* <p>Gloss: {targetAnswer.join(" ")}</p> */}
             <PredictionDisplay predictions={predictions} isTyping={nextPredIndex < targetAnswer.length} />
         </div>
     </div>
@@ -208,20 +203,23 @@ export const ConvoQuiz = ({ title, dialogue, onPrevSection, onNextSection }) => 
             <h3 className="section-title">{title}</h3>
             <ProgressBar max={dialogue.length} val={index + 1} />
 
-            {dialogue[index].person == 'A' ?
-                <ReadSign
-                    dialogue={dialogue[index]}
-                    question={questions[index]}
-                    answer={answers[index]}
-                    handleSetAnswer={handleSetAnswer}
-                    modelPlayer={modelPlayer}
-                /> :
-                <DoSign
-                    dialogue={dialogue[index]}
-                    answer={answers[index]}
-                    handleSetAnswer={handleSetAnswer}
-                />
-            }
+            <div style={{display: "flex", gap: "1rem"}}>
+                {dialogue[index].person == 'A' ?
+                    <ReadSign
+                        dialogue={dialogue[index]}
+                        question={questions[index]}
+                        answer={answers[index]}
+                        handleSetAnswer={handleSetAnswer}
+                        modelPlayer={modelPlayer}
+                    /> :
+                    <DoSign
+                        dialogue={dialogue[index]}
+                        answer={answers[index]}
+                        handleSetAnswer={handleSetAnswer}
+                    />
+                }
+                <ChatDialogue dialogues={dialogue} lastDialogueIndex={index} />
+            </div>
 
             <div className="prev-next-section">
                 <button

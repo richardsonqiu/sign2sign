@@ -10,8 +10,8 @@ import { ConvoQuiz } from "components/ConvoQuiz";
 const Convo = () => {
   const { lessonId, convoIndex } = useParams(); // to fetch which lesson and which vocab
   const history = useHistory();
-  // const [mode, setMode] = useState("practice");
-  const [mode, setMode] = useState("quiz");
+  const [mode, setMode] = useState("practice");
+  // const [mode, setMode] = useState("quiz");
 
   const [convo, setConvo] = useState(null);
 

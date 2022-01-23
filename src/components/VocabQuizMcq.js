@@ -60,9 +60,9 @@ export const VocabQuizMcq = ({ title, words, onPrevSection, onNextSection }) => 
         <section className="container section">
             <h3 className="section-title">{title}</h3>
             <ProgressBar max={words.length} val={index + 1} />
-            <div className="vocab-card">
+            <div className="container-card vocab-quiz-mcq">
                 <h3 className="card-instruction">Select the correct meaning for the following sign!</h3>
-                <h3 className="card-title">{words[index].gloss}</h3>
+                {/* <h3 className="card-title">{words[index].gloss}</h3> */}
 
                 <div className="model">
                     <VocabModelPlayer words={words} index={index} />
