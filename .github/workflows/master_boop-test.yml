@@ -25,6 +25,7 @@ jobs:
         run: |
           touch .env
           echo REACT_APP_API_BASE=${{ secrets.REACT_APP_API_BASE }} >> .env
+          echo REACT_APP_SIGN_RECOGNITION_ENDPOINT=${{ secrets.REACT_APP_SIGN_RECOGNITION_ENDPOINT }} >> .env
 
       - name: npm install, build, and test
         run: |
