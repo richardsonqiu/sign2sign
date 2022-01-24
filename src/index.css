@@ -922,7 +922,7 @@ Convo Quiz
 .convo-quiz {
     flex: 1;
     height: 640px;
-    overflow: scroll;
+    overflow-y: auto;
 }
 
 /* .convo-quiz .answer-container {
@@ -943,12 +943,16 @@ Convo Quiz
 
 .convo-quiz .answer-reset-btn {
     font-weight: bold;
-    color: var(--mainWhite);
-    background-color: var(--primaryColor);
+    color: var(--mainRed);
+    background: none;
     border-radius: 1rem;
     padding: 1rem;
-    border: none;
+    border: 2px solid var(--mainRed);
     cursor: pointer;
+}
+
+.convo-quiz .answer-reset-btn:hover {
+    box-shadow: var(--lightShadow);
 }
 
 .convo-quiz .options {
@@ -1035,7 +1039,7 @@ Chat Dialogue
 .chat-dialogue {
     flex: 0 1 300px;
     height: 640px;
-    overflow: scroll;
+    overflow-y: auto;
     margin: 1rem 0;
     padding: 1rem;
     /* align-self: flex-start; */
