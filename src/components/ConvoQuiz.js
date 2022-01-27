@@ -81,20 +81,16 @@ const ReadSign = ({ dialogue, question, answer, handleSetAnswer, modelPlayer }) 
             <PlaybackControls playerState={playerState} play={play} stop={stop} reset={reset} seek={seek} />
         </div>
 
-        {/* <div className="dialogue">
-            <p className="person-sentence">{dialogue.person}: {dialogue.sentence[0]}</p>
-            <div>
-                {dialogue.person == 'A' ? "" : (<p>Gloss: {correctAns.join(" ")}</p>)}
+        <div>
+            <div style={{textAlign: "center"}}>In English: <b>{ dialogue.sentence.join(" ") }</b></div>
+            <div className="answer-labels">
+                <p>Your answer (in gloss):</p>
+                {answer.map((ans, i) =>
+                    <div key={i} className="answer-label">{ans}</div>
+                )}
             </div>
-            <p>Gloss reference: {correctAns.join(" ")}</p>
-        </div> */}
-
-        <div className="answer-labels">
-            <p>Your answer:</p>
-            {answer.map((ans, i) =>
-                <div key={i} className="answer-label">{ans}</div>
-            )}
         </div>
+
         <button className="answer-reset-btn" onClick={resetAnswer}>RESET ANSWER</button>
 
         <div className="options">
@@ -138,12 +134,16 @@ const DoSign = ({ dialogue, answer, handleSetAnswer }) => {
 
         <CameraInput handleFrame={handleFrame} />
 
-        <div className="answer-labels">
-            <p>Gloss: </p>
-            {targetAnswer.map((ans, i) =>
-                <div key={i} className="answer-label">{ans}</div>
-            )}
+        <div>
+            <div>In English: <b>{ dialogue.sentence.join(" ") }</b></div>
+            <div className="answer-labels">
+                <p>In gloss: </p>
+                {targetAnswer.map((ans, i) =>
+                    <div key={i} className="answer-label">{ans}</div>
+                )}
+            </div>
         </div>
+
 
         <div style={{ fontSize: "1.5em" }}>
             {/* <p>Gloss: {targetAnswer.join(" ")}</p> */}

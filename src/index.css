@@ -932,7 +932,7 @@ Convo Quiz
 
 .convo-quiz {
     flex: 1;
-    height: 600px;
+    height: 630px;
     overflow-y: auto;
 }
 
@@ -955,6 +955,7 @@ Convo Quiz
 }
 
 .convo-quiz .answer-label {
+    font-weight: bold;
     text-decoration: underline;
 }
 
@@ -1061,7 +1062,7 @@ Chat Dialogue
 
 .chat-dialogue {
     flex: 0 1 300px;
-    height: 600px;
+    height: 630px;
     overflow-y: auto;
     margin: 1rem 0;
     margin-right: 1rem;
