@@ -138,12 +138,12 @@ const DoSign = ({ dialogue, answer, handleSetAnswer }) => {
 
         <CameraInput handleFrame={handleFrame} />
 
-        {/* <div className="dialogue">
-            <p className="person-sentence">{dialogue.person}: {dialogue.sentence[0]}</p>
-            <div>
-                <p>Gloss: {targetAnswer.join(" ")}</p>
-            </div>
-        </div> */}
+        <div className="answer-labels">
+            <p>Gloss: </p>
+            {targetAnswer.map((ans, i) =>
+                <div key={i} className="answer-label">{ans}</div>
+            )}
+        </div>
 
         <div style={{ fontSize: "1.5em" }}>
             {/* <p>Gloss: {targetAnswer.join(" ")}</p> */}
@@ -203,7 +203,7 @@ export const ConvoQuiz = ({ title, dialogue, onPrevSection, onNextSection }) => 
             <h3 className="section-title">{title}</h3>
             <ProgressBar max={dialogue.length} val={index + 1} />
 
-            <div style={{display: "flex", gap: "1rem"}}>
+            <div style={{display: "flex"}}>
                 {dialogue[index].person == 'A' ?
                     <ReadSign
                         dialogue={dialogue[index]}

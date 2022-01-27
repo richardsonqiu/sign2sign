@@ -19,6 +19,6 @@ export const CameraInput = ({ handleFrame }) => {
     }, []);
     
     return <div>
-        <video ref={cameraRef} style={{transform: "rotateY(180deg)"}}></video>
+        <video ref={cameraRef} className="camera-input"></video>
     </div>
 }
