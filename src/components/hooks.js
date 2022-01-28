@@ -182,8 +182,12 @@ export const useModelPlayer = () => {
 
 export const useSignRecognition = (onPrediction) => {
     const [isReady, setIsReady] = useState(false);
+
     const holisticRef = useRef(null);
     const socketRef = useRef(null);
+
+    const sentFirstFrame = useRef(false);
+    const modelReady = useRef(false);
 
     useEffect(() => {
         // Set up websocket connection
@@ -203,6 +207,11 @@ export const useSignRecognition = (onPrediction) => {
             if (socket.readyState !== WebSocket.OPEN) return;
             if (!result.poseLandmarks) return;
 
+            if (!sentFirstFrame.current) {
+                sentFirstFrame.current = true;
+                setIsReady(true);
+            } 
+
             const frame = processResult(result);
             const data = JSON.stringify(frame);
 
@@ -210,7 +219,7 @@ export const useSignRecognition = (onPrediction) => {
         });
         (async () => {
             await holistic.initialize();
-            setIsReady(true);
+            modelReady.current = true;
         })()
 
         holisticRef.current = holistic;
@@ -228,11 +237,11 @@ export const useSignRecognition = (onPrediction) => {
     }, [onPrediction]);
 
     const handleFrame = useCallback(async (videoElement) => {
-        if (!isReady) return;
+        if (!modelReady.current) return;
 
         const holistic = holisticRef.current;
         await holistic.send({image: videoElement});
-    }, [isReady]);
+    }, []);
 
     return { handleFrame, isReady };
 }
