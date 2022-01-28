@@ -210,10 +210,13 @@ export const useSignRecognition = (onPrediction) => {
             if (!sentFirstFrame.current) {
                 sentFirstFrame.current = true;
                 setIsReady(true);
-            } 
+            }
 
             const frame = processResult(result);
-            const data = JSON.stringify(frame);
+            const data = JSON.stringify({
+                time: Date.now(),
+                data: frame
+            });
 
             socket.send(data);
         });
