@@ -127,7 +127,7 @@ const DoSign = ({ dialogue, answer, handleSetAnswer }) => {
         setPredictions([...predictions, { text: p, isMatch }]);
     };
 
-    const { handleFrame } = useSignRecognition(onPrediction);
+    const { handleFrame, isReady } = useSignRecognition(onPrediction);
 
     return <div className="container-card convo-quiz">
         <h3 className="card-instruction">Sign the following sentence!</h3>
@@ -147,7 +147,10 @@ const DoSign = ({ dialogue, answer, handleSetAnswer }) => {
 
         <div style={{ fontSize: "1.5em" }}>
             {/* <p>Gloss: {targetAnswer.join(" ")}</p> */}
-            <PredictionDisplay predictions={predictions} isTyping={nextPredIndex < targetAnswer.length} />
+            {isReady
+                ? <PredictionDisplay predictions={predictions} isTyping={nextPredIndex < targetAnswer.length} />
+                : <>Loading...</>
+            } 
         </div>
     </div>
 }

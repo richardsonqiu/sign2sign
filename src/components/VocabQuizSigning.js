@@ -26,7 +26,7 @@ export const VocabQuizSigning = ({ title, words, onPrevSection, onNextSection })
         setNextPredIndex(0);
     }, [index]);
 
-    const { handleFrame } = useSignRecognition(onPrediction);
+    const { handleFrame, isReady } = useSignRecognition(onPrediction);
 
     function prevVocab() {
         const prevIndex = Math.max(index - 1, 0);
@@ -52,7 +52,10 @@ export const VocabQuizSigning = ({ title, words, onPrevSection, onNextSection })
 
                 {/* Prediction section */}
                 <div style={{fontSize: "1.5em"}}>
-                    <PredictionDisplay predictions={predictions} isTyping={nextPredIndex < targetSequence.length} />
+                    {isReady
+                        ? <PredictionDisplay predictions={predictions} isTyping={nextPredIndex < targetSequence.length} />
+                        : <>Loading...</>
+                    }
                 </div>
             </div>
 

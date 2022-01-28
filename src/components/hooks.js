@@ -181,6 +181,7 @@ export const useModelPlayer = () => {
 }
 
 export const useSignRecognition = (onPrediction) => {
+    const [isReady, setIsReady] = useState(false);
     const holisticRef = useRef(null);
     const socketRef = useRef(null);
 
@@ -207,6 +208,11 @@ export const useSignRecognition = (onPrediction) => {
 
             socket.send(data);
         });
+        (async () => {
+            await holistic.initialize();
+            setIsReady(true);
+        })()
+
         holisticRef.current = holistic;
 
         return () => {
@@ -222,10 +228,11 @@ export const useSignRecognition = (onPrediction) => {
     }, [onPrediction]);
 
     const handleFrame = useCallback(async (videoElement) => {
+        if (!isReady) return;
+
         const holistic = holisticRef.current;
         await holistic.send({image: videoElement});
+    }, [isReady]);
 
-    }, []);
-
-    return { handleFrame };
+    return { handleFrame, isReady };
 }

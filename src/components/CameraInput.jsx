@@ -4,21 +4,28 @@ import { useEffect } from "react";
 
 export const CameraInput = ({ handleFrame }) => {
     const cameraRef = useRef(null);
+    const videoRef = useRef(null);
 
     useEffect(() => {
-        const camera = new Camera(cameraRef.current, {
-            onFrame: () => handleFrame(cameraRef.current),
+        const camera = new Camera(videoRef.current, {
             facingMode: "user"
         });
-
-        camera.start()
+        camera.start();
+        cameraRef.current = camera;
 
         return () => {
             camera.stop();
         }
     }, []);
-    
+
+    useEffect(() => {
+        cameraRef.current.h.onFrame = () => {
+            if (!videoRef.current) return;
+            handleFrame(videoRef.current);
+        };
+    }, [handleFrame]);
+
     return <div>
-        <video ref={cameraRef} className="camera-input"></video>
+        <video ref={videoRef} className="camera-input"></video>
     </div>
 }
