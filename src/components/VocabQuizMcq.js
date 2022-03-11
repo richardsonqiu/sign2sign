@@ -35,7 +35,7 @@ export const VocabQuizMcq = ({ title, words, onPrevSection, onNextSection }) => 
     useEffect(() => {
         setQuestions(words.map((word, i) => ({
             correctAns: word.gloss,
-            options: generateRandomOptions(words, i, 4)
+            options: generateRandomOptions(words, i, Math.min(4, words.length))
         })));
         setAnswers(words.map(() => null));
     }, []);
