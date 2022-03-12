@@ -44,6 +44,8 @@ function generateRandomOptions(dialogue, d, extraOptions) {
     const correctAns = getCorrectAns(d);
     const options = [...correctAns];
 
+    extraOptions = Math.min(extraOptions, allGloss.length - correctAns.length)
+
     while (options.length < correctAns.length + extraOptions) {
         const randomIndex = Math.floor(Math.random() * allGloss.length);
         const word = allGloss[randomIndex];
