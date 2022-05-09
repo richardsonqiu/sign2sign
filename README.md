@@ -1,6 +1,14 @@
-# Getting Started with Create React App
+# Sign2Sign Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project Config
+Before running the frontend app, create a `.env` file inside the root folder with the following config:
+```
+# Backend API Config, replace <BASE_URL> as needed
+REACT_APP_API_BASE=http://<BASE_URL>
+REACT_APP_SIGN_RECOGNITION_ENDPOINT=ws://<BASE_URL>/signRecognition
+
+REACT_EDITOR=none
+```
 
 ## Available Scripts
 
