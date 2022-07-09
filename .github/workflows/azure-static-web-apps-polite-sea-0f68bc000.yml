@@ -32,6 +32,7 @@ jobs:
           REACT_APP_API_BASE: ${{ secrets.REACT_APP_API_BASE }}
           REACT_APP_SIGN_RECOGNITION_ENDPOINT: ${{ secrets.REACT_APP_SIGN_RECOGNITION_ENDPOINT }}
 
+  close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
     name: Close Pull Request Job
