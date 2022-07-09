@@ -196,7 +196,7 @@ export const useSignRecognition = (onPrediction) => {
         
         // Set up MediaPipe holistic
         const holistic = new Holistic({locateFile: file => {
-            return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic/${file}`;
+            return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic@0.5.1635989137/${file}`;
         }});
         holistic.setOptions({
             modelComplexity: 1,
